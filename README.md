@@ -1,6 +1,6 @@
 # Vehicle Roadside Assistance System
 
-A web-based **Vehicle Roadside Assistance System** designed to connect vehicle users with mechanics and provide roadside assistance services through an online platform.
+A web-based **Vehicle Roadside Assistance System** developed to connect vehicle users with mechanics and provide roadside assistance through an online platform.
 
 ## Technologies Used
 
@@ -19,11 +19,12 @@ A web-based **Vehicle Roadside Assistance System** designed to connect vehicle u
 - User Dashboard
 - Mechanic Dashboard
 - Admin Dashboard
-- Roadside Service Requests
-- Mechanic Service Request Management
+- Roadside Assistance Requests
+- Mechanic Request Management
 - Service Status Tracking
 - Emergency Support
-- Travel and Service Assistance
+- Self Troubleshooting
+- Travel and Journey Assistance
 - Feedback and Reviews
 - Mechanic Profile Management
 - Emergency Contact Management
@@ -31,13 +32,13 @@ A web-based **Vehicle Roadside Assistance System** designed to connect vehicle u
 ## Project Modules
 
 ### User Module
-Users can register, log in, request roadside assistance, view service requests, track service status, access emergency support, and provide feedback.
+Users can register and log in, plan a journey, request roadside assistance, view and track service requests, access self-troubleshooting and emergency support, and provide feedback.
 
 ### Mechanic Module
-Mechanics can register, manage their profile, view service requests, accept or reject requests, and update service status.
+Mechanics can register, manage their profile, view incoming roadside assistance requests, accept or reject requests, update service information, and manage job status.
 
 ### Admin Module
-The administrator can manage users, mechanics, service requests, feedback, emergency contacts, and other system activities.
+The administrator can manage users, mechanics, service requests, feedback, emergency contacts, troubleshooting content, and system activity through a centralized dashboard.
 
 ## Project Structure
 
@@ -46,6 +47,7 @@ Vehicle-Roadside-Assistance-System/
 ├── app.py
 ├── db/
 ├── static/
+│   └── screenshots/
 ├── templates/
 ├── .gitignore
 └── README.md
@@ -53,7 +55,7 @@ Vehicle-Roadside-Assistance-System/
 
 ## Database
 
-The system uses **MySQL** to store application data such as users, mechanics, service requests, feedback, emergency contacts, and related records.
+The system uses **MySQL** to store application data including users, mechanics, service requests, feedback, emergency contacts, and related records.
 
 ## How to Run
 
@@ -64,9 +66,31 @@ The system uses **MySQL** to store application data such as users, mechanics, se
 5. Run the Flask application.
 6. Open the local application URL in a web browser.
 
-## Screenshots
+## Project Screenshots
 
-Screenshots of the implemented application will be added here.
+### Home Page
+![Vehicle Roadside Assistance System Home Page](static/screenshots/home.png)
+
+### User Registration
+![User Registration](static/screenshots/user-registration.png)
+
+### Service Request
+![Roadside Service Request](static/screenshots/service-request.png)
+
+### Mechanic Requests
+![Mechanic Dashboard and Requests](static/screenshots/request-mechanic.png)
+
+### Mechanic Dashboard
+![Mechanic Dashboard](static/screenshots/mechanic-dashboard.png)
+
+### Admin Dashboard
+![Admin Dashboard](static/screenshots/admin-dashboard.png)
+
+### Self Troubleshoot
+![Self Troubleshoot](static/screenshots/self-troubleshoot.png)
+
+### Emergency Help
+![Emergency Help](static/screenshots/emergency-help.png)
 
 ## Future Enhancements
 
