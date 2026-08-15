@@ -39,27 +39,6 @@ Mechanics can register, manage their profile, view service requests, accept or r
 ### Admin Module
 The administrator can manage users, mechanics, service requests, feedback, emergency contacts, and other system activities.
 
-## Screenshots
-
-### Home and Login
-![Home](static/home.png)
-![Login](static/log.png)
-
-### User Service Request
-![Service Request](static/sr.png)
-![Request Status](static/req.png)
-
-### Mechanic Profile and Registration
-![Mechanic Registration](static/mech_reg.png)
-![Mechanic Profile](static/prof.png)
-
-### Emergency and Travel Assistance
-![Emergency Support](static/emg.png)
-![Travel Assistance](static/travel.png)
-
-### Feedback
-![Feedback](static/feed.png)
-
 ## Project Structure
 
 ```text
@@ -84,6 +63,10 @@ The system uses **MySQL** to store application data such as users, mechanics, se
 4. Configure the database connection in the Flask application.
 5. Run the Flask application.
 6. Open the local application URL in a web browser.
+
+## Screenshots
+
+Screenshots of the implemented application will be added here.
 
 ## Future Enhancements
 
