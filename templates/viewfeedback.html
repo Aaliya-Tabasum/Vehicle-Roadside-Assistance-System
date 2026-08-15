@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>View Feedback</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{font-family:Poppins,sans-serif}
+body{margin:0;background:url('/static/feed1.png') center/cover fixed no-repeat;background-color:#0b0620;}
+body:before{content:'';position:fixed;inset:0;background:linear-gradient(rgba(246,241,232,.68),rgba(10, 2, 58, 0.78));backdrop-filter:blur(3px);z-index:-1;}
+.sidebar{background:#13294B!important;backdrop-filter:blur(18px);border-right:2px solid #D4A72C}
+.glass{background:rgba(246,241,232,.94)!important;border:1px solid rgba(212,167,44,.25);backdrop-filter:blur(16px);box-shadow:0 14px 34px rgba(19,41,75,.18)}
+.menu{transition:.3s;color:#fff}
+.menu:hover,.active{background:#facc15!important;color:#111!important;transform:translateX(6px)}
+.glass:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(250,204,21,.18);transition:.35s}
+</style>
+
+
+</head>
+
+<body>
+
+<div class="flex min-h-screen">
+
+<aside class="sidebar w-72 text-[#13294B] shadow-2xl">
+
+<div class="text-center py-8 border-b border-gray-700">
+
+<i class="fa-solid fa-car-burst text-5xl text-[#D4A72C] mb-4"></i>
+
+<h2 class="text-2xl font-bold">
+Admin Panel
+</h2>
+
+<p class="text-gray-400 text-sm mt-2">
+Vehicle Roadside Assistance
+</p>
+
+</div>
+
+<nav class="mt-8 px-5 space-y-3">
+
+<a href="/admindashboard"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="/aviewuserspage"
+class="menu  flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-users"></i>
+Users
+</a>
+
+<a href="/aviewmechanicspage"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-screwdriver-wrench"></i>
+Mechanics
+</a>
+
+<a href="/aviewrequestspage"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-list-check"></i>
+Requests
+
+</a>
+
+<a href="/viewfeedbackpage"
+class="menu active flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-star"></i>
+Feedback
+</a>
+
+<a href="/adminemergencypage"
+               class="menu flex items-center gap-4 px-4 py-2.5 rounded-xl">
+
+                <i class="fa-solid fa-phone-volume"></i>
+
+                Emergency Contacts
+
+            </a>
+
+<a href="addtroubleshootpage" 
+class="menu  flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-add"></i>
+                        Add Troubleshoot
+
+</a>
+
+<a href="/viewtroubleshoot"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-toolbox"></i>
+Troubleshoot
+</a>
+
+<a href="/"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-right-from-bracket"></i>
+Logout
+
+</a>
+
+</nav>
+</aside>
+
+<main class="flex-1 p-8">
+
+<!-- CONTENT -->
+
+<div class="glass rounded-2xl p-6 mb-8">
+
+<h1 class="text-4xl font-bold text-[#13294B]">
+    <i class="fa-solid fa-star text-[#D4A72C] mr-2"></i>
+    User Feedback
+</h1>
+
+<p class="text-[#5B6475] mt-2">
+    View ratings and reviews submitted by users.
+</p>
+
+</div>
+
+<div class="mt-8">
+
+<div class="grid lg:grid-cols-4 md:grid-cols-2 gap-4 mt-8">
+
+{% for r in feedbacks %}
+
+<div class="glass rounded-2xl shadow-lg p-4 h-[290px] hover:scale-105 hover:shadow-yellow-500/20 transition duration-300 overflow-auto">
+
+<div>
+
+<div class="flex justify-between items-center">
+
+<h2 class="text-lg font-bold text-[#D4A72C]">
+
+{{r[3]}}
+
+</h2>
+
+{% if r[1]==5 %}
+<span class="bg-green-600 px-3 py-1 rounded-full text-[#13294B] text-sm font-bold">
+★★★★★
+</span>
+
+{% elif r[1]==4 %}
+<span class="bg-[#2F5BEA] px-3 py-1 rounded-full text-[#13294B] text-sm font-bold">
+★★★★☆
+</span>
+
+{% elif r[1]==3 %}
+<span class="bg-yellow-500 px-3 py-1 rounded-full text-black text-sm font-bold">
+★★★☆☆
+</span>
+
+{% else %}
+<span class="bg-red-600 px-3 py-1 rounded-full text-[#13294B] text-sm font-bold">
+★★☆☆☆
+</span>
+{% endif %}
+
+</div>
+
+<div class="space-y-1 mt-3 text-sm text-[#233A63]">
+
+<p>
+
+<i class="fa-solid fa-envelope text-[#D4A72C]"></i>
+
+{{r[4]}}
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-user-gear text-[#D4A72C]"></i>
+
+Mechanic :
+{{r[5]}}
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-shop text-[#D4A72C]"></i>
+
+{{r[6]}}
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-star text-[#D4A72C]"></i>
+
+Rating :
+{{r[1]}} / 5
+
+</p>
+
+</div>
+
+<div class="mt-6">
+
+<h3 class="text-[#D4A72C] font-semibold mb-2">
+
+Feedback
+
+</h3>
+
+<div class="bg-[#EDE7DC] rounded-lg p-2 h-16 overflow-auto text-sm text-[#233A63]">
+
+{{r[2]}}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Vehicle Self Troubleshoot</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap');
+*{font-family:Manrope,sans-serif}
+body{
+background:
+linear-gradient(rgba(9,20,35,.58),rgba(9,20,35,.58)),
+url('/static/mech_reg4.1.png') center/cover fixed no-repeat;
+min-height:100vh;
+}
+.overlay{min-height:100vh;}
+.glass{
+background:rgba(255,255,255,.94);
+backdrop-filter:blur(14px);
+border:1px solid rgba(212,166,58,.18);
+box-shadow:0 20px 45px rgba(0,0,0,.18);
+}
+.solution-card{transition:.3s}
+.solution-card:hover{transform:translateY(-8px)}
+input,select{
+background:#fff!important;color:#102847!important;border:1px solid #d8d3c8!important
+}
+</style>
+</head>
+<body>
+<div class="overlay">
+<!-- NAVBAR -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-[#F3EFE8]/95 backdrop-blur-xl shadow">
+<div class="max-w-7xl mx-auto flex justify-between items-center px-8 py-4">
+<h1 class="text-4xl font-extrabold">🔧 <span style="color:#102847">Self </span><span style="color:#D4A63A">Troubleshoot</span></h1>
+<div>
+<a class="text-[#102847] hover:text-[#D4A63A] font-semibold" href="/">
+
+                        Home
+
+                    </a>
+</div>
+</div>
+</nav>
+<!-- SEARCH -->
+<div class="max-w-7xl mx-auto pt-32 pb-8">
+<div class="grid md:grid-cols-3 gap-5">
+<input class="p-3 rounded-xl bg-gray-800 text-white" id="searchInput" placeholder="Search problem..." type="text"/>
+<select class="p-3 rounded-xl bg-gray-800 text-white" id="vehicleFilter">
+<option value="">All Vehicles</option>
+<option>Two Wheeler</option>
+<option>Four Wheeler</option>
+</select>
+<select class="p-3 rounded-xl bg-gray-800 text-white" id="categoryFilter">
+<option value="">All Categories</option>
+<option>Battery</option>
+<option>Engine</option>
+<option>Brake</option>
+<option>Tyre</option>
+<option>Fuel</option>
+<option>Electrical</option>
+<option>Cooling</option>
+<option>Transmission</option>
+<option>Lights</option>
+<option>Suspension</option>
+<option>Chain</option>
+<option>Clutch</option>
+</select>
+</div>
+</div>
+<!-- CARDS -->
+<div class="max-w-7xl mx-auto pb-10">
+<div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8" id="cards">
+
+                {% for r in res %}
+
+                <div class="glass rounded-3xl p-6 solution-card" data-category="{{r[2]}}" data-problem="{{r[3]|lower}}" data-vehicle="{{r[1]}}">
+<div class="flex justify-between">
+<h2 class="text-[#102847] text-2xl font-extrabold">
+
+                            {% if r[1]=="Two Wheeler" %}
+
+                            🏍 {{r[1]}}
+
+                            {% else %}
+
+                            🚗 {{r[1]}}
+
+                            {% endif %}
+
+                        </h2>
+<span class="bg-[#102847] text-white px-4 py-1 rounded-full font-semibold">
+
+                            {{r[6]}}
+
+                        </span>
+</div>
+<hr class="my-3 border-gray-600"/>
+<p class="text-gray-700 mt-3 leading-7">
+<b class="text-[#D4A63A]">
+
+                            📂 Category :
+
+                        </b>
+
+                        {{r[2]}}
+
+                    </p>
+<p class="text-gray-700 mt-3 leading-7">
+<b class="text-[#D4A63A]">
+
+                            ❓ Problem :
+
+                        </b>
+
+                        {{r[3]}}
+
+                    </p>
+<p class="text-gray-700 mt-3 leading-7">
+<b class="text-[#D4A63A]">
+
+                            🔧 Tools :
+
+                        </b>
+
+                        {{r[5]}}
+
+                    </p>
+<p class="mt-4 px-3 py-2 rounded-xl bg-red-50 text-red-700 font-medium">
+
+                        ⚠ {{r[7]}}
+
+                    </p>
+<div class="rounded-2xl p-5 mt-5 border-l-4 border-[#D4A63A] bg-[#FFF8EC]">
+<h3 class="text-yellow-400 font-bold">
+
+                            Solution
+
+                        </h3>
+<p class="text-gray-700 mt-2 leading-8">
+                            {{ r[4].strip() }}
+                        </p>
+</div>
+</div>
+
+                {% endfor %}
+
+            </div>
+</div>
+</div>
+<script>
+
+        const search = document.getElementById("searchInput");
+        const vehicle = document.getElementById("vehicleFilter");
+        const category = document.getElementById("categoryFilter");
+
+        function filterCards() {
+
+            const text = search.value.toLowerCase();
+
+            document.querySelectorAll(".solution-card").forEach(card => {
+
+                const p = card.dataset.problem.toLowerCase();
+
+                const v = card.dataset.vehicle;
+
+                const c = card.dataset.category;
+
+                const show =
+
+                    p.includes(text)
+
+                    &&
+
+                    (vehicle.value == "" || v == vehicle.value)
+
+                    &&
+
+                    (category.value == "" || c == category.value);
+
+                card.style.display = show ? "block" : "none";
+
+            });
+
+        }
+
+        search.addEventListener("keyup", filterCards);
+
+        vehicle.addEventListener("change", filterCards);
+
+        category.addEventListener("change", filterCards);
+
+    </script>
+</body>
+</html>

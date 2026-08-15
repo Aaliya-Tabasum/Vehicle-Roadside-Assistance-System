@@ -1,0 +1,162 @@
+```html
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Add Travel</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet"/>
+<style>
+body{
+background:
+linear-gradient(rgba(10,20,35,.38),rgba(10,20,35,.38)),
+url('/static/sr1.png') center/cover fixed no-repeat;
+min-height:100vh;
+font-family:'Segoe UI',sans-serif;
+}
+.overlay{min-height:100vh}
+.glass{
+background:rgba(248,245,240,.95);
+backdrop-filter:blur(16px);
+border:1px solid rgba(212,166,58,.22);
+box-shadow:0 18px 45px rgba(0,0,0,.22);
+}
+input{
+background:#fff!important;
+color:#102847!important;
+border:1px solid #d7d1c5!important;
+}
+label{color:#102847!important;font-weight:700}
+</style>
+</head>
+<body>
+<div class="overlay">
+<!-- NAVBAR -->
+<!-- Navbar -->
+<nav class="fixed top-0 left-0 w-full bg-[#102847]/92 backdrop-blur-xl border-b border-[#D4A63A]/20 shadow-xl z-50">
+<div class="max-w-7xl mx-auto flex justify-between items-center px-8 py-4">
+<div class="text-3xl font-bold text-yellow-400">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-full bg-[#D4A63A] flex items-center justify-center">
+<i class="fa-solid fa-screwdriver-wrench text-[#102847]"></i>
+</div>
+<div><span style="color:white">Road</span><span style="color:#D4A63A">Assist</span></div>
+</div>
+</div>
+<div class="space-x-3">
+<a class="bg-[#D4A63A] text-[#102847] px-5 py-2 rounded-full font-bold" href="addtravelpage">
+            Add Travel
+
+          </a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="service_request">
+            Service Request
+          </a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="myrequests">
+            My Requests
+          </a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="uviewmytravelspage">
+            My Travels
+          </a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="feedbackpage">
+            Feedback
+          </a>
+<!--<a href="emergency" class="text-white hover:text-yellow-400">Emergency</a>-->
+<a class="text-red-300 hover:text-red-200 font-semibold" href="/">
+            Logout
+          </a>
+</div>
+</div>
+</nav>
+<!-- FORM -->
+<div class="flex justify-center items-center min-h-screen pt-20 px-6">
+<div class="glass rounded-[28px] p-8 w-full max-w-xl">
+<div class="text-center">
+<div class="w-20 h-20 bg-[#102847] rounded-full mx-auto flex items-center justify-center">
+<i class="fa-solid fa-road text-4xl text-[#D4A63A]"></i>
+</div>
+<h1 class="text-3xl font-extrabold text-[#102847] mt-4">
+
+            Plan Your Journey
+
+          </h1>
+<p class="text-gray-600 mt-2">
+  Enter your travel details so that nearby mechanics can assist you quickly whenever required.
+</p>
+<!-- OR Divider -->
+<div class="flex items-center my-6">
+<div class="flex-grow border-t border-gray-500"></div>
+<span class="px-4 text-gray-300 font-semibold">OR</span>
+<div class="flex-grow border-t border-gray-500"></div>
+</div>
+<!-- Emergency Service Request -->
+<div class="text-center mb-6">
+<p class="text-red-300 mb-3 font-semibold">
+        Vehicle breakdown right now?
+    </p>
+<a class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-3 rounded-xl shadow-lg transition duration-300" href="/service_request">
+<i class="fa-solid fa-triangle-exclamation"></i>
+        Request Immediate Assistance
+    </a>
+</div>
+</div>
+<div class="text-center text-red-300 font-semibold mt-5">
+
+          {% for message in get_flashed_messages() %}
+          {{message}}
+          {% endfor %}
+
+        </div>
+<form action="savetravel" class="mt-8 space-y-6" method="POST">
+<div>
+<label class="text-white font-semibold">
+<i class="fa-solid fa-location-dot text-yellow-400"></i>
+
+              Source Location
+
+            </label>
+<input class="w-full mt-2 p-4 rounded-xl border border-gray-400" name="source" placeholder="Enter Source" required="" type="text"/>
+</div>
+<div>
+<label class="text-white font-semibold">
+<i class="fa-solid fa-flag-checkered text-yellow-400"></i>
+
+              Destination
+
+            </label>
+<input class="w-full mt-2 p-4 rounded-xl border border-gray-400" name="dest" placeholder="Enter Destination" required="" type="text"/>
+</div>
+<div class="grid md:grid-cols-2 gap-6">
+<div>
+<label class="text-white font-semibold">
+<i class="fa-solid fa-calendar-days text-yellow-400"></i>
+
+                Journey Date
+
+              </label>
+<input class="w-full mt-2 p-4 rounded-xl border border-gray-400" name="tdate" required="" type="date"/>
+</div>
+<div>
+<label class="text-white font-semibold">
+<i class="fa-solid fa-clock text-yellow-400"></i>
+
+                Journey Time
+
+              </label>
+<input class="w-full mt-2 p-4 rounded-xl border border-gray-400" name="ttime" required="" type="time"/>
+</div>
+</div>
+<button class="w-full bg-[#102847] hover:bg-[#183a64] text-white font-bold py-3 rounded-xl text-lg" type="submit">
+<i class="fa-solid fa-route"></i>
+
+            Start Journey
+
+          </button>
+</form>
+</div>
+</div>
+</div>
+</body>
+
+</html>

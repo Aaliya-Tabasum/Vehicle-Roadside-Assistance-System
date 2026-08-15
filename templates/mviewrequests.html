@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>Roadside Assistance Requests</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <style>
+body{
+background:
+linear-gradient(rgba(243,239,232,.72),rgba(243,239,232,.78)),
+url('/static/sr1.png') center/cover fixed no-repeat;
+font-family:'Segoe UI',sans-serif;
+min-height:100vh;
+}
+.overlay{
+background:linear-gradient(rgba(16,40,71,.08),rgba(16,40,71,.18));
+min-height:100vh;
+}
+.glass{
+background:rgba(231,225,214,.93);
+backdrop-filter:blur(18px);
+border:1px solid rgba(212,166,58,.35);
+box-shadow:0 18px 40px rgba(16,40,71,.16);
+transition:.3s;
+}
+.glass:hover{
+transform:translateY(-6px);
+box-shadow:0 28px 60px rgba(16,40,71,.22);
+}
+</style>
+
+</head>
+
+<body>
+
+  <div class="overlay">
+
+    <!-- Navbar -->
+
+    <nav class="fixed top-0 left-0 w-full bg-[#102847] backdrop-blur-xl shadow-xl border-b border-[#D4A63A]/20 z-50">
+
+      <div class="max-w-7xl mx-auto flex justify-between items-center px-8 py-4">
+
+        <div class="text-3xl font-extrabold text-white">
+
+          <i class="fa-solid fa-screwdriver-wrench"></i>
+
+          <span class="text-[#D4A63A]">Mechanic</span> Dashboard
+
+        </div>
+
+        <div class="space-x-4">
+
+    <a href="/viewuserrequestspage"
+       class="bg-[#D4A63A] text-[#102847] px-5 py-2 rounded-full font-semibold">
+        Requests
+    </a>
+
+    <a href="/mechprofilepage"
+       class="text-[#f3efe8] hover:text-[#D4A63A]">
+        My Profile
+    </a>
+
+    <a href="/"
+       class="text-[#f3efe8] hover:text-red-300">
+        Logout
+    </a>
+
+</div>
+
+      </div>
+
+    </nav>
+
+    <div class="pt-28 pb-10 px-8">
+
+      <h1 class="text-5xl text-center text-[#102847] font-extrabold drop-shadow-sm">
+
+        Roadside Assistance Requests
+
+      </h1>
+
+      <p class="text-center text-[#3d5166] mt-3">
+
+        Manage requests sent by travellers.
+
+      </p>
+
+      <div class="text-center text-red-300 mt-4 font-semibold">
+
+        {% for message in get_flashed_messages() %}
+        {{message}}
+        {% endfor %}
+
+      </div>
+
+     <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-5 mt-8">
+
+        {% for r in res %}
+
+        <div class="glass rounded-3xl p-6 hover:-translate-y-1 duration-300">
+
+          
+          <div class="flex justify-between items-center">
+
+   <h2 class="text-xl text-[#D4A63A] font-bold flex items-center gap-2">
+        {{ loop.index }}. 👤 {{ r[12] }}
+    </h2>
+
+    {% if r[4]=="Pending" %}
+    <span class="bg-[#D4A63A] text-[#102847] px-2 py-1 rounded-full text-xs font-semibold">
+        Pending
+    </span>
+
+    {% elif r[4]=="Accepted" %}
+    <span class="bg-green-600 text-white px-3 py-1 rounded-full font-bold">
+        Accepted
+    </span>
+
+    {% elif r[4]=="Completed" %}
+    <span class="bg-blue-600 text-white px-3 py-1 rounded-full font-bold">
+        Completed
+    </span>
+
+    {% elif r[4]=="Rejected" %}
+    <span class="bg-red-600 text-white px-3 py-1 rounded-full font-bold">
+        Rejected
+    </span>
+
+    {% endif %}
+
+</div>
+
+        <div class="mt-4 space-y-1 text-[#34495e] text-sm">
+
+            {% if r[3] is none %}
+            <!-- NEW FEATURE: Direct Service Request (no journey) -->
+            <p><i class="fa-solid fa-bolt text-[#D4A63A]"></i>
+              <b>Direct Service Request</b>
+            </p>
+            <p><i class="fa-solid fa-car text-[#D4A63A]"></i>
+              <b>Vehicle:</b> {{r[5]}}</p>
+            <p><i class="fa-solid fa-triangle-exclamation text-[#D4A63A]"></i>
+              <b>Problem:</b> {{r[6]}}</p>
+            <p><i class="fa-solid fa-location-dot text-[#D4A63A]"></i>
+              <b>Location:</b> {{r[7]}}</p>
+            {% else %}
+            <!-- Existing journey-based request -->
+            <p><i class="fa-solid fa-route text-[#D4A63A]"></i>
+              <b>Source:</b> {{r[8]}}</p>
+            <p><i class="fa-solid fa-location-dot text-[#D4A63A]"></i>
+              <b>Destination:</b> {{r[9]}}</p>
+            <p><i class="fa-solid fa-calendar text-[#D4A63A]"></i>
+              {{r[10]}}</p>
+            <p><i class="fa-solid fa-clock text-[#D4A63A]"></i>
+              {{r[11]}}</p>
+            {% endif %}
+
+            <hr class="border-[#d7c8ad] my-3">
+
+          <h3 class="text-[#D4A63A] font-semibold text-base">
+    User Details
+</h3>
+
+<p>
+    <i class="fa-solid fa-envelope text-[#D4A63A] text-sm"></i>
+    <b>Email :</b> {{ r[13] }}
+</p>
+
+<p>
+   <i class="fa-solid fa-phone text-[#D4A63A] text-sm"></i>
+    <b>Phone :</b> {{ r[14] }}
+</p>
+
+<p>
+    <i class="fa-solid fa-car text-[#D4A63A] text-sm"></i>
+    <b>Car Number :</b> {{ r[15] }}
+</p>
+
+<p>
+    <i class="fa-solid fa-motorcycle text-[#D4A63A] text-sm"></i>
+    <b>Bike Number :</b> {{ r[16] }}
+</p>
+
+          </div>
+
+         {% if r[4]=="Pending" %}
+
+<div class="grid grid-cols-2 gap-4 mt-8">
+
+    <a href="acceptassi?id={{r[0]}}"
+       class="bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-center py-3 rounded-xl font-bold">
+        <i class="fa-solid fa-check"></i>
+        Accept
+    </a>
+
+    <a href="rejectassi?id={{r[0]}}"
+       class="bg-[#dc2626] hover:bg-[#b91c1c] text-white text-center py-3 rounded-xl font-bold">
+        <i class="fa-solid fa-xmark"></i>
+        Reject
+    </a>
+
+</div>
+
+{% elif r[4]=="Accepted" %}
+
+<div class="grid grid-cols-2 gap-3 mt-6">
+
+<button
+onclick="updateLocation()"
+class="bg-yellow-500 hover:bg-yellow-600 text-black text-center py-2 rounded-lg font-bold w-full">
+
+📍 Update Location
+
+</button>
+
+<a href="completedassi?id={{r[0]}}"
+class="bg-[#102847] hover:bg-[#0b1d35] text-white text-center py-2 rounded-lg font-bold">
+
+ Accepted
+
+</a>
+
+</div>
+
+{% elif r[4]=="Completed" %}
+
+<div class="mt-8 text-center">
+    <span class="bg-[#2563eb] text-white px-5 py-2 rounded-full font-bold">
+        <i class="fa-solid fa-circle-check"></i>
+        Job Completed
+    </span>
+</div>
+
+{% elif r[4]=="Rejected" %}
+
+<div class="mt-8 text-center">
+    <span class="bg-red-700 text-white px-5 py-2 rounded-full font-bold">
+        <i class="fa-solid fa-circle-xmark"></i>
+        Job Rejected
+    </span>
+</div>
+
+{% endif %}
+
+        </div>
+
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+function updateLocation(){
+
+if(navigator.geolocation){
+
+navigator.geolocation.getCurrentPosition(function(position){
+
+fetch("/updatelocation",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+lat:position.coords.latitude,
+
+lon:position.coords.longitude
+
+})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+    let msg = document.getElementById("successMsg");
+
+    msg.classList.remove("hidden");
+
+    setTimeout(function(){
+
+        msg.classList.add("hidden");
+
+    },3000);
+
+});
+
+});
+
+}else{
+
+alert("Location not supported");
+
+}
+
+}
+
+</script>
+
+<div id="successMsg"
+     class="hidden fixed top-12 left-1/2 -translate-x-1/2 -translate-y-1/2  text-white px-8 py-4 rounded-xl shadow-2xl text-lg font-bold z-50">
+     Location Updated Successfully
+</div>
+
+</body>
+
+</html>

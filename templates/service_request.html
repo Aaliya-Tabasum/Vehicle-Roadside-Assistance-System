@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Direct Service Request</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet"/>
+<style>
+body{
+background:
+linear-gradient(rgba(10,22,40,.45),rgba(10,22,40,.45)),
+url('/static/sr1.png') center right/cover fixed no-repeat;
+min-height:100vh;
+font-family:'Segoe UI',sans-serif;
+}
+.overlay{min-height:100vh}
+.glass{
+background:rgba(248,245,240,.94);
+backdrop-filter:blur(18px);
+border:1px solid rgba(212,166,58,.18);
+box-shadow:0 25px 60px rgba(0,0,0,.25);
+}
+input,select,textarea{
+background:#fff!important;
+color:#102847!important;
+border:1px solid #d8d2c5!important;
+}
+label{color:#102847!important;font-weight:700}
+input::placeholder,textarea::placeholder{color:#6b7280}
+</style>
+</head>
+<body>
+<div class="overlay">
+<!-- NAVBAR (matches existing dashboard) -->
+<nav class="fixed top-0 left-0 w-full bg-[#102847]/92 backdrop-blur-xl border-b border-[#D4A63A]/20 shadow-xl z-50">
+<div class="max-w-7xl mx-auto flex justify-between items-center px-8 py-4">
+<div class="text-3xl font-bold text-yellow-400">
+<div class="flex items-center gap-3 text-3xl font-bold">
+<div class="w-11 h-11 rounded-full bg-[#D4A63A] flex items-center justify-center">
+<i class="fa-solid fa-route text-[#102847]"></i></div>
+<span style="color:white">Road</span><span style="color:#D4A63A">Assist</span>
+</div>
+</div>
+<div class="space-x-3">
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="addtravelpage">
+
+            Add Travel
+
+          </a>
+<a class="bg-[#D4A63A] text-[#102847] px-5 py-2 rounded-full font-bold" href="service_request">
+
+            Service Request
+
+          </a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="myrequests">
+
+            My Requests
+
+          </a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="uviewmytravelspage">
+
+            My Travels
+
+          </a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="feedbackpage">
+
+            Feedback
+
+          </a>
+<a class="text-red-300 hover:text-red-200 font-semibold" href="/">
+
+            Logout
+
+          </a>
+</div>
+</div>
+</nav>
+<!-- FORM -->
+<div class="flex justify-center items-start min-h-screen pt-28 pb-10 px-6">
+<div class="glass rounded-[30px] p-8 w-full max-w-3xl">
+<div class="text-center mb-4">
+<div class="w-20 h-20 bg-[#102847] rounded-full mx-auto flex items-center justify-center">
+<i class="fa-solid fa-car-side text-4xl text-[#D4A63A]"></i>
+</div>
+<h1 class="text-4xl font-extrabold text-[#102847] mt-3">
+
+            Direct Service Request
+
+          </h1>
+<p class="text-gray-600 mt-2">
+
+            Raise a roadside assistance request directly — no journey required.
+
+          </p>
+</div>
+<div class="text-center text-red-300 font-semibold mt-5">
+
+          {% for message in get_flashed_messages() %}
+
+          {{ message }}
+
+          {% endfor %}
+
+        </div>
+<!-- NEW FEATURE FORM -->
+<form action="savedirectrequest" class="mt-6 space-y-4" method="POST">
+<!-- Target mechanic -->
+<div class="grid grid-cols-2 gap-4">
+<!-- Mechanic -->
+<!-- Current Location -->
+<div>
+<label class="text-white font-semibold">
+<i class="fa-solid fa-location-dot text-yellow-400"></i>
+            Current Location
+        </label>
+<div class="flex items-center gap-2 mt-2">
+<input class="flex-1 p-3 rounded-xl border border-gray-400" id="location" name="location" placeholder="Enter your location" type="text"/>
+<button class="h-[50px] w-[50px] flex items-center justify-center bg-blue-600 hover:bg-blue-700 rounded-xl text-white" onclick="useCurrentLocation()" type="button">
+<i class="fa-solid fa-location-crosshairs"></i>
+</button>
+</div>
+<input id="latitude" name="latitude" type="hidden"/>
+<input id="longitude" name="longitude" type="hidden"/>
+<p class="text-green-300 text-sm mt-2" id="locMsg"></p>
+</div>
+</div>
+<!-- User's registered vehicles -->
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="text-white font-semibold">
+Vehicle
+</label>
+<select class="w-full mt-2 p-4 rounded-xl border border-gray-400" name="vehicle" required="">
+<option value="">Select Vehicle</option>
+
+{% if user[3] %}
+<option value="{{ user[3] }}">{{ user[3] }} (Car)</option>
+{% endif %}
+
+{% if user[4] %}
+<option value="{{ user[4] }}">{{ user[4] }} (Bike)</option>
+{% endif %}
+
+</select>
+</div>
+<div>
+<label class="text-white font-semibold">
+Vehicle Model
+</label>
+<input class="w-full mt-2 p-4 rounded-xl border border-gray-400" name="model" placeholder="Swift / Activa" required="" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="text-white font-semibold">
+Insurance
+</label>
+<input class="w-full mt-2 p-3 rounded-xl border border-gray-500 bg-gray-700 text-gray-300 cursor-not-allowed" readonly="" type="text" value="{{ user[5] }}"/>
+</div>
+<div>
+<label class="text-white font-semibold">
+Problem Type
+</label>
+<select class="w-full mt-2 p-4 rounded-xl border border-gray-400" name="ptype" required="">
+<option value="">Select</option>
+<option>Flat Tyre</option>
+<option>Battery Issue</option>
+<option>Engine Problem</option>
+<option>Brake Failure</option>
+<option>Fuel Empty</option>
+<option>Accident</option>
+<option>Over Heating</option>
+<option>Other</option>
+</select>
+</div>
+</div>
+<!-- Problem description -->
+<div>
+<label class="text-white font-semibold">
+<i class="fa-solid fa-triangle-exclamation text-yellow-400"></i>
+
+              Problem Description
+
+            </label>
+<textarea class="w-full mt-2 p-4 rounded-xl border border-gray-400" name="problem" placeholder="Describe the problem (e.g. Flat tyre, Battery dead)" required="" rows="2"></textarea>
+</div>
+<!-- Location -->
+<button class="w-full bg-[#102847] hover:bg-[#183a64] text-white font-bold py-4 rounded-xl text-lg" type="submit">
+<i class="fa-solid fa-paper-plane"></i>
+
+            Submit Request
+
+          </button>
+</form>
+</div>
+</div>
+</div>
+<!-- Geolocation logic lives in static/js/location.js -->
+<script src="/static/js/location.js"></script>
+</body>
+
+</html>

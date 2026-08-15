@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Customer Reviews</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+*{font-family:'Manrope',sans-serif}
+body{
+margin:0;
+background:
+linear-gradient(rgba(10,23,41,.72),rgba(10,23,41,.72)),
+url('/static/mech_reg2.png') center/cover fixed no-repeat;
+min-height:100vh;
+}
+.overlay{min-height:100vh;background:backdrop-filter:blur(8px);}
+.glass{
+background:rgba(255,255,255,.14);
+backdrop-filter:blur(22px);
+border:1px solid rgba(255,255,255,.22);
+box-shadow:0 20px 45px rgba(0,0,0,.28);
+}
+.review-card{border-radius:28px;transition:.35s}
+.review-card:hover{transform:translateY(-10px)}
+</style>
+</head>
+
+<body>
+<div class="overlay">
+<!-- Navbar -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-white/12 backdrop-blur-xl border-b border-white/10">
+<div class="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
+<div class="text-3xl font-bold text-yellow-400"><div class="flex items-center gap-3 text-4xl font-black">
+<div class="w-11 h-11 rounded-full bg-[#102847] flex items-center justify-center"><i class="fa-solid fa-screwdriver-wrench text-[#D4A63A]"></i></div>
+<span style="color:#102847">Road</span><span style="color:#D4A63A">Assist</span>
+</div></div>
+<div class="space-x-3">
+<a class="text-[#102847] hover:text-[#D4A63A] px-5 py-2 rounded-full font-semibold" href="/">
+            Home
+          </a>
+<a class="text-[#102847] hover:text-[#D4A63A] px-5 py-2 rounded-full font-semibold" href="userregisterpage">
+            User Register
+          </a>
+<a class="text-[#102847] hover:text-[#D4A63A] px-5 py-2 rounded-full font-semibold" href="mechregisterpage">
+            Mechanic Register
+          </a>
+<a class="text-[#102847] hover:text-[#D4A63A] px-5 py-2 rounded-full font-semibold" href="allfeedbacks">
+            Feedback
+          </a>
+<a class="text-[#102847] hover:text-[#D4A63A] px-5 py-2 rounded-full font-semibold" href="selftroubleshoot">
+            Self Troubleshoot
+          </a>
+<a class="text-[#102847] hover:bg-red-600 hover:text-white px-5 py-2 rounded-full font-semibold" href="emergency">
+    Emergency Help
+</a>
+</div>
+</div>
+</nav>
+<div class="pt-28 pb-12">
+<div class="max-w-7xl mx-auto">
+<h1 class="text-6xl font-extrabold text-center text-white">
+<i class="fa-solid fa-star text-[#D4A63A] mr-3"></i>
+
+          Customer Reviews
+
+        </h1>
+<p class="text-center text-gray-200 mt-4 text-xl">
+
+          See what travellers say about our mechanics.
+
+        </p>
+<div class="text-center text-red-300 font-semibold mt-4">
+
+          {% for message in get_flashed_messages() %}
+          {{message}}
+          {% endfor %}
+
+        </div>
+<div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mt-12">
+
+          {% for r in res %}
+
+          <div class="glass review-card p-8">
+<div class="flex justify-between items-center">
+<div>
+<h2 class="text-3xl font-bold text-white">
+
+                  {{r[18]}}
+
+                </h2>
+<p class="text-gray-200">
+
+                  {{r[20]}}
+
+                </p>
+</div>
+<div class="text-right">
+<div class="text-[#D4A63A] text-xl">
+
+                  {% if r[1]==1 %}
+                  ⭐☆☆☆☆
+                  {% elif r[1]==2 %}
+                  ⭐⭐☆☆☆
+                  {% elif r[1]==3 %}
+                  ⭐⭐⭐☆☆
+                  {% elif r[1]==4 %}
+                  ⭐⭐⭐⭐☆
+                  {% elif r[1]==5 %}
+                  ⭐⭐⭐⭐⭐
+                  {% endif %}
+
+                </div>
+<p class="text-white">
+
+                  {{r[1]}} / 5
+
+                </p>
+</div>
+</div>
+<hr class="border-gray-600 my-5"/>
+<div class="flex items-center mb-4">
+<div class="w-14 h-14 rounded-full bg-yellow-400 text-black flex items-center justify-center text-2xl font-bold">
+
+                {{r[6][0]}}
+
+              </div>
+<div class="ml-4">
+<p class="text-white">
+
+                  {{r[6]}}
+
+                </p>
+<p class="text-gray-200">
+
+                  {{r[7]}}
+
+                </p>
+<p class="text-gray-200">
+
+                  {{r[8]}}
+
+                </p>
+</div>
+</div>
+<div class="bg-black/20 rounded-2xl p-5">
+<p class="text-[#D4A63A] font-bold text-lg mb-3">
+<i class="fa-solid fa-quote-left"></i>
+
+                Review
+
+              </p>
+<p class="text-gray-200 leading-8">
+
+                {{r[2]}}
+
+              </p>
+</div>
+</div>
+
+          {% endfor %}
+
+        </div>
+</div>
+</div>
+</div>
+</body>
+
+</html>

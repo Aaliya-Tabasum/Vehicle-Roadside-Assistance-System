@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{font-family:Poppins,sans-serif}
+body{
+margin:0;
+background:url('/static/mecg help.jpg') center/cover fixed no-repeat;
+position:relative;
+overflow-x:hidden;
+}
+body:before{
+content:'';
+position:fixed;inset:0;
+background:rgba(0,0,0,.68);
+backdrop-filter:blur(4px);
+z-index:-1;
+}
+.sidebar{
+width:260px;
+background:rgba(35,35,35,.72);
+backdrop-filter:blur(20px);
+border-right:1px solid rgba(250,204,21,.18);
+box-shadow:0 0 25px rgba(0,0,0,.45);
+}
+.glass{
+background:rgba(70,70,70,.35);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.12);
+box-shadow:0 12px 30px rgba(0,0,0,.35);
+transition:.35s;
+}
+.card:hover,.glass:hover{transform:translateY(-5px);box-shadow:0 16px 35px rgba(250,204,21,.22)}
+.menu{transition:.3s;color:#fff}
+.menu:hover,.active{
+background:#facc15;
+color:#111827;
+transform:translateX(6px);
+}
+canvas{max-height:220px!important}
+table tr:hover{background:rgba(250,204,21,.08)}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<style id="roadassist-theme">
+body{
+background:linear-gradient(rgba(247,243,236,.78),rgba(247,243,236,.82)),url('/static/admin_dashboard_bg.jpg') center/cover fixed no-repeat!important;
+color:#13294B!important;
+}
+.sidebar{
+background:#13294B!important;
+border-right:3px solid #D4A017!important;
+}
+.glass{
+background:rgba(247,243,236,.88)!important;
+backdrop-filter:blur(16px);
+border:1px solid rgba(19,41,75,.12)!important;
+color:#13294B!important;
+}
+.glass h1,.glass h2,.glass h3,.glass th,.glass td,.glass span,.glass p{color:#13294B!important;}
+.menu{color:#f3f4f6!important;}
+.menu:hover,.active{
+background:#D4A017!important;
+color:#13294B!important;
+}
+table tr:hover{background:rgba(37,99,235,.08)!important;}
+</style>
+
+
+<style id="chart-text-fix">
+.glass,.glass *{color:#16325c!important;}
+.text-white{color:#16325c!important;}
+.text-gray-300,.text-gray-400{color:#4b5f7a!important;}
+thead tr{color:#16325c!important;}
+canvas{background:transparent!important;}
+</style>
+
+</head>
+
+<body>
+
+<div class="flex min-h-screen">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar text-white shadow-2xl flex flex-col">
+
+        <div class="text-center py-6 border-b border-gray-700">
+
+            <i class="fa-solid fa-car-burst text-4xl text-yellow-400 mb-3"></i>
+
+            <h2 class="text-xl  text-gray-100 font-bold">
+                Admin Panel
+            </h2>
+
+            <p class="text-gray-100 text-sm mt-2">
+                Vehicle Roadside Assistance
+            </p>
+
+        </div>
+
+        <nav class="mt-6 px-4 space-y-2 flex-1 flex flex-col">
+
+            <a href="/admindashboard"
+               class="menu active flex items-center gap-4 px-4 py-2.5 rounded-xl font-semibold">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                Dashboard
+
+            </a>
+
+            <a href="/aviewuserspage"
+               class="menu flex items-center gap-4 px-4 py-2.5 rounded-xl">
+
+                <i class="fa-solid fa-users"></i>
+
+                Users
+
+            </a>
+
+            <a href="/aviewmechanicspage"
+               class="menu flex items-center gap-4 px-4 py-2.5 rounded-xl">
+
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+
+                Mechanics
+
+            </a>
+
+            <a href="/aviewrequestspage"
+               class="menu flex items-center gap-4 px-4 py-2.5 rounded-xl">
+
+                <i class="fa-solid fa-list-check"></i>
+
+                Requests
+
+            </a>
+
+            <a href="/viewfeedbackpage"
+               class="menu flex items-center gap-4 px-4 py-2.5 rounded-xl">
+
+                <i class="fa-solid fa-star"></i>
+
+                Feedback
+
+            </a>
+
+            <a href="/adminemergencypage"
+               class="menu flex items-center gap-4 px-4 py-2.5 rounded-xl">
+
+                <i class="fa-solid fa-phone-volume"></i>
+
+                Emergency Contacts
+
+            </a>
+
+
+            <a href="addtroubleshootpage" 
+class="menu  flex items-center gap-4 px-4 py-2.5 rounded-xl">
+<i class="fa-solid fa-add"></i>
+                        Add Troubleshoot
+
+</a>
+
+            <a href="/viewtroubleshoot"
+               class="menu flex items-center gap-4 px-4 py-2.5 rounded-xl">
+
+                <i class="fa-solid fa-toolbox"></i>
+
+                Self Troubleshoot
+
+  <div class="mt-auto">
+
+    <a href="/" class="menu flex items-center gap-4 px-4 py-2.5 rounded-xl">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+    </a>
+
+    <!-- Profile card here -->
+
+
+<!-- Admin Profile Card -->
+
+<div class="glass rounded-2xl p-4 mt-6">
+
+    <div class="text-center">
+
+        <div class="w-16 h-16 mx-auto rounded-full bg-yellow-400 flex items-center justify-center">
+
+            <i class="fa-solid fa-user-shield text-black text-2xl"></i>
+
+        </div>
+
+        <h3 class="text-white font-bold mt-3">
+            Administrator
+        </h3>
+
+        <p class="text-gray-400 text-sm">
+            Vehicle Roadside Assistance
+        </p>
+
+        <span class="inline-block mt-3 bg-green-500 text-white text-xs px-3 py-1 rounded-full">
+            ● Online
+        </span>
+
+    </div>
+
+</div>
+
+</nav>
+
+</aside>
+    
+
+    <!-- MAIN CONTENT -->
+
+    <main class="flex-1 p-5">
+
+        <!-- TOP BAR -->
+
+        <div class="glass rounded-2xl p-5 flex justify-between items-center">
+
+            <div>
+
+                <h1 class="text-3xl font-bold text-white">
+    Welcome Back, Administrator 
+</h1>
+
+<p class="text-gray-300 mt-2 text-sm">
+    Manage roadside assistance services, monitor mechanics, users, requests, and feedback from one central dashboard.
+</p>
+
+            </div>
+
+            <div class="flex items-center">
+
+    <div class="flex items-center gap-3 rounded-full bg-white/10 px-5 py-3 border border-white/10">
+        <i class="fa-solid fa-user text-yellow-400"></i>
+        <span class="font-semibold">Administrator</span>
+    </div>
+
+</div>
+
+        </div>
+
+        <!-- WELCOME CARD -->
+
+                  
+
+        <!-- STATISTICS CARDS WILL COME HERE -->
+
+        <!-- ================= STATISTICS ================= -->
+
+<!-- ================= END STATISTICS ================= -->
+<!-- ================= CHARTS ================= -->
+
+<div class="grid lg:grid-cols-2 gap-2 mt-4">
+
+    <!-- Pie Chart -->
+
+    <div class="glass rounded-2xl p-3 card">
+
+        <div class="flex justify-between items-center mb-3">
+
+            <h2 class="text-base font-semibold text-white">
+
+                <i class="fa-solid fa-chart-pie text-yellow-400 mr-2"></i>
+
+                Request Status
+
+            </h2>
+
+            <span class="text-xs bg-yellow-400 text-black px-3 py-1 rounded-full font-bold">
+                Live
+            </span>
+
+        </div>
+
+        <div class="h-56">
+
+            <canvas id="statusChart"></canvas>
+
+        </div>
+
+    </div>
+
+    <!-- Bar Chart -->
+
+    <div class="glass rounded-2xl p-4 card">
+
+        <div class="flex justify-between items-center mb-3">
+
+            <h2 class="text-lg font-semibold text-white">
+
+                <i class="fa-solid fa-chart-column text-yellow-400 mr-2"></i>
+
+                Dashboard Statistics
+
+            </h2>
+
+        </div>
+
+        <div class="h-56">
+
+            <canvas id="barChart"></canvas>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= REQUEST SUMMARY ================= -->
+
+<div class="glass rounded-2xl p-3 mt-3 card">
+
+    <h2 class="text-lg font-bold text-white mb-4">
+
+        <i class="fa-solid fa-list-check text-yellow-400 mr-2"></i>
+
+        Request Summary
+
+    </h2>
+
+    <div class="overflow-x-auto">
+
+        <table class="w-full text-left">
+
+            <thead>
+
+                <tr class="border-b border-gray-700 text-gray-400">
+
+                    <th class="py-2">Category</th>
+
+                    <th>Total</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr class="border-b border-gray-800 hover:bg-white/5">
+
+                    <td class="py-2 text-white">Pending Requests</td>
+
+                    <td><span class="bg-yellow-500 px-3 py-1 rounded-full text-black font-bold">{{ pending }}</span></td>
+
+                </tr>
+
+                <tr class="border-b border-gray-800 hover:bg-white/5">
+
+                    <td class="py-2 text-white">Accepted Requests</td>
+
+                    <td><span class="bg-green-500 px-3 py-1 rounded-full text-white font-bold">{{ accepted }}</span></td>
+
+                </tr>
+
+                <tr class="border-b border-gray-800 hover:bg-white/5">
+
+                    <td class="py-2 text-white">Completed Requests</td>
+
+                    <td><span class="bg-cyan-500 px-3 py-1 rounded-full text-white font-bold">{{ completed }}</span></td>
+
+                </tr>
+
+                <tr class="hover:bg-white/5">
+
+                    <td class="py-2 text-white">Rejected Requests</td>
+
+                    <td><span class="bg-red-500 px-3 py-1 rounded-full text-white font-bold">{{ rejected }}</span></td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- ================= LATEST REQUESTS ================= -->
+
+<div class="glass rounded-2xl p-4 mt-4 card">
+
+    <div class="flex justify-between items-center mb-4">
+
+        <h2 class="text-lg font-bold text-white">
+
+            <i class="fa-solid fa-clock-rotate-left text-yellow-400 mr-2"></i>
+
+            Latest Assistance Requests
+
+        </h2>
+
+    </div>
+
+    <div class="overflow-x-auto rounded-xl">
+
+        <table class="w-full">
+
+            <thead>
+
+                <tr class="text-gray-400 border-b border-gray-700">
+
+                    <th class="py-2 text-left">User</th>
+
+                    <th class="text-left">Mechanic</th>
+
+                    <th class="text-left">Vehicle</th>
+
+                    <th class="text-left">Problem</th>
+
+                    <th class="text-left">Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for r in latest_requests %}
+
+                <tr class="border-b border-gray-800 hover:bg-white/5 transition">
+
+                    <td class="py-2 text-white">{{ r[0] }}</td>
+
+                    <td class="text-white">{{ r[1] }}</td>
+
+                    <td class="text-white">{{ r[2] }}</td>
+
+                    <td class="text-gray-300">{{ r[3] }}</td>
+
+                    <td>
+
+                        {% if r[4]=="Pending" %}
+
+                        <span class="bg-yellow-500 px-2 py-1 rounded-full text-[11px] font-bold text-black">Pending</span>
+
+                        {% elif r[4]=="Accepted" %}
+
+                        <span class="bg-green-500 px-2 py-1 rounded-full text-[11px] font-bold text-white">Accepted</span>
+
+                        {% elif r[4]=="Completed" %}
+
+                        <span class="bg-cyan-500 px-2 py-1 rounded-full text-[11px] font-bold text-white">Completed</span>
+
+                        {% else %}
+
+                        <span class="bg-red-500 px-2 py-1 rounded-full text-[11px] font-bold text-white">Rejected</span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- ================= QUICK ACTIONS ================= -->
+
+
+ 
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+<script>
+
+const pending={{ pending|default(0)}};
+const accepted = {{ accepted|default(0) }};
+const completed = {{ completed|default(0) }};
+const rejected = {{ rejected|default(0) }};
+
+const users = {{ users|default(0) }};
+const mechanics = {{ mechanics|default(0) }};
+const requests = {{ requests|default(0) }};
+const feedbacks = {{ feedbacks|default(0) }};
+
+// ================= Doughnut Chart =================
+
+const statusChart = document.getElementById("statusChart");
+
+new Chart(statusChart, {
+    type: "doughnut",
+
+    data: {
+        labels: ["Pending", "Accepted", "Completed", "Rejected"],
+
+        datasets: [{
+            data: [pending, accepted, completed, rejected],
+
+            backgroundColor: [
+                "#facc15",
+                "#22c55e",
+                "#06b6d4",
+                "#ef4444"
+            ],
+
+            borderWidth: 0
+        }]
+    },
+
+    options: {
+        maintainAspectRatio: false,
+
+        cutout: "68%",
+
+        plugins: {
+            legend: {
+                position: "bottom",
+
+                labels: {
+                    color: "#16325c",
+                    padding: 15,
+
+                    font: {
+                        size: 12
+                    }
+                }
+            }
+        }
+    }
+});
+
+// ================= Bar Chart =================
+
+const barChart = document.getElementById("barChart");
+
+new Chart(barChart, {
+    type: "bar",
+
+    data: {
+        labels: ["Users", "Mechanics", "Requests", "Feedback"],
+
+        datasets: [{
+            data: [users, mechanics, requests, feedbacks],
+
+            backgroundColor: [
+                "#3b82f6",
+                "#facc15",
+                "#8b5cf6",
+                "#ec4899"
+            ],
+
+            borderRadius: 8,
+
+            maxBarThickness: 45
+        }]
+    },
+
+    options: {
+        maintainAspectRatio: false,
+
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                },
+
+                ticks: {
+                    color: "#16325c",
+
+                    font: {
+                        size: 11
+                    }
+                }
+            },
+
+            y: {
+                grid: {
+                    color:"rgba(22,50,92,.15)"
+                },
+
+                ticks: {
+                    color: "#16325c",
+
+                    font: {
+                        size: 11
+                    }
+                }
+            }
+        }
+    }
+});
+
+</script>
+</body></html>

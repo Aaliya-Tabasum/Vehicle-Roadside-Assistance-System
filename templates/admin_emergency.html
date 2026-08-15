@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin Emergency Contacts</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{font-family:Poppins,sans-serif}
+body{margin:0;background:url('/static/emg.png') center/cover fixed no-repeat;background-color:#f6f1e8;position:relative}
+body:before{content:'';position:fixed;inset:0;background:linear-gradient(rgba(19,41,75,.35),rgba(246,241,232,.70));backdrop-filter:blur(10px);z-index:-1}
+.sidebar{width:260px;background:rgba(35,35,35,.72);backdrop-filter:blur(20px);border-right:1px solid rgba(250,204,21,.18);box-shadow:0 0 25px rgba(0,0,0,.45)}
+.glass{background:rgba(70,70,70,.35);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);box-shadow:0 12px 30px rgba(0,0,0,.35);transition:.35s}
+.glass:hover{transform:translateY(-4px);box-shadow:0 16px 35px rgba(250,204,21,.22)}
+.menu{transition:.3s;color:#fff}
+.menu:hover,.active{background:#facc15;color:#111827;transform:translateX(6px)}
+input,textarea,select{background:rgba(255,255,255,.92)}
+
+.sidebar{
+width:270px;
+background:#13294B;
+backdrop-filter:blur(20px);
+border-right:1px solid rgba(250,204,21,.15);
+box-shadow:0 0 30px rgba(0,0,0,.45);
+}
+
+.menu{
+color:white;
+transition:.35s;
+font-weight:500;
+}
+
+.menu:hover,
+.menu.active{
+background:#facc15;
+color:#111827;
+transform:translateX(8px);
+box-shadow:0 8px 25px rgba(250,204,21,.35);
+}
+
+.glass{
+background:rgba(20,30,48,.82);color:#F6F1E8;
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.10);
+box-shadow:0 12px 30px rgba(0,0,0,.35);
+}
+</style></head>
+<body>
+<div class="flex min-h-screen">
+<aside class="sidebar text-[#F6F1E8] shadow-2xl flex flex-col">
+
+    <!-- Logo -->
+    <div class="text-center py-6 border-b border-gray-700">
+        <i class="fa-solid fa-car-burst text-5xl text-yellow-400 mb-3"></i>
+
+        <h2 class="text-xl font-bold">
+            Admin Panel
+        </h2>
+
+        <p class="text-gray-400 text-sm mt-2">
+            Vehicle Roadside Assistance
+        </p>
+    </div>
+
+    <!-- Menu -->
+    <nav class="mt-5 px-5 flex-1 space-y-2">
+
+        <a href="/admindashboard"
+           class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+
+            <i class="fa-solid fa-chart-line w-5"></i>
+            Dashboard
+
+        </a>
+
+        <a href="/aviewuserspage"
+           class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+
+            <i class="fa-solid fa-users w-5"></i>
+            Users
+
+        </a>
+
+        <a href="/aviewmechanicspage"
+           class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+
+            <i class="fa-solid fa-screwdriver-wrench w-5"></i>
+            Mechanics
+
+        </a>
+
+        <a href="/aviewrequestspage"
+           class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+
+            <i class="fa-solid fa-list-check w-5"></i>
+            Requests
+
+        </a>
+
+        <a href="/viewfeedbackpage"
+           class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+
+            <i class="fa-solid fa-star w-5"></i>
+            Feedback
+
+        </a>
+
+        <a href="/adminemergencypage"
+           class="menu active flex items-center gap-4 px-5 py-3 rounded-xl">
+
+            <i class="fa-solid fa-phone-volume w-5"></i>
+            Emergency Contacts
+
+        </a>
+
+        <a href="/addtroubleshootpage"
+           class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+
+            <i class="fa-solid fa-plus w-5"></i>
+            Add Troubleshoot
+
+        </a>
+
+        <a href="/viewtroubleshoot"
+           class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+
+            <i class="fa-solid fa-toolbox w-5"></i>
+            Self Troubleshoot
+
+        </a>
+
+    
+
+    <!-- Bottom -->
+    <div class="p-5">
+
+        <a href="/"
+           class="menu flex items-center gap-4 px-5 py-3 rounded-xl mb-5">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+
+        </a>
+
+        <div class="glass rounded-3xl p-6">
+
+            <div class="w-20 h-20 rounded-full bg-[#D4A72C] mx-auto flex items-center justify-center">
+
+                <i class="fa-solid fa-user-shield text-4xl text-black"></i>
+
+            </div>
+
+            <h3 class="text-center text-xl font-bold mt-4">
+                Administrator
+            </h3>
+
+            <p class="text-center text-gray-400 text-sm">
+                Vehicle Roadside Assistance
+            </p>
+
+            <div class="flex justify-center mt-4">
+
+                <span class="bg-green-500 px-4 py-1 rounded-full text-sm font-semibold">
+                    ● Online
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+</nav>
+</aside>
+<main class="flex-1 p-6">
+<div class="glass rounded-2xl p-4 flex justify-between items-center">
+<div><h1 class="text-3xl font-bold text-[#F6F1E8]">Emergency Contact Management</h1><p class="text-[#d7dce5] mt-2">Add and manage emergency service numbers.</p></div>
+</div>
+<div class="glass rounded-3xl p-5 mt-8 max-w-md mx-auto shadow-2xl">
+<form action="/saveemergency" method="POST" class="space-y-3">
+<input name="service_name" required placeholder="Service Name" class="w-full rounded-xl p-2.5 text-black">
+<input name="contact_number" required placeholder="Contact Number" class="w-full rounded-xl p-2.5 text-black">
+<textarea name="description" rows="2" placeholder="Description" class="w-full rounded-xl p-2.5 text-black"></textarea>
+<select name="status" class="w-full rounded-xl p-2.5 text-black"><option>Active</option><option>Inactive</option></select>
+<button class="bg-[#D4A72C] hover:bg-[#C8951A] font-bold px-2 py-1 rounded-xl"><i class="fa fa-plus"></i> Add Contact</button>
+</form></div>
+<div class="glass rounded-3xl overflow-hidden mt-10">
+<table class="w-full">
+<thead class="bg-[#D4A72C] text-black">
+<tr>
+    <th class="py-4 px-6 text-center">Service</th>
+    <th class="py-4 px-6 text-center">Number</th>
+    <th class="py-4 px-6 text-center">Description</th>
+    <th class="py-4 px-6 text-center">Status</th>
+    <th class="py-4 px-6 text-center">Action</th>
+</tr>
+</thead>
+<tbody>{% for r in contacts %}
+<tr class="border-b border-white/10 hover:bg-white/5">
+
+<td class="py-4 px-6 text-center">{{r[1]}}</td>
+
+<td class="py-4 px-6 text-center">{{r[2]}}</td>
+
+<td class="py-4 px-6 text-center">{{r[3]}}</td>
+
+<td class="py-4 px-6 text-center">
+{% if r[4]=='Active' %}
+<span class="bg-green-600 px-3 py-1 rounded-full text-white">
+Active
+</span>
+{% else %}
+<span class="bg-red-600 px-3 py-1 rounded-full text-white">
+Inactive
+</span>
+{% endif %}
+</td>
+
+<td class="py-4 px-6 text-center whitespace-nowrap">
+
+<button
+type="button"
+onclick="openEditModal(
+'{{r[0]}}',
+'{{r[1]}}',
+'{{r[2]}}',
+'{{r[3]}}',
+'{{r[4]}}'
+)"
+class="bg-[#2F5BEA] hover:bg-[#2349c7] text-white px-4 py-2 rounded-lg">
+
+Edit
+
+</button>
+
+<a href="/deleteemergency?id={{r[0]}}"
+class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg ml-2">
+Delete
+</a>
+
+</td>
+
+</tr>
+{% endfor %}</tbody></table></div>
+</main></div>
+
+<div id="editModal"
+class="fixed inset-0 hidden items-center justify-center bg-black/60 backdrop-blur-sm z-50">
+
+<div
+class="w-full max-w-xl rounded-3xl p-8
+bg-white/15 backdrop-blur-2xl
+border border-white/20
+shadow-2xl">
+
+<h2 class="text-3xl font-bold text-yellow-400 mb-6 text-center">
+Edit Emergency Contact
+</h2>
+
+<form action="/updateemergency" method="POST" class="space-y-4">
+
+<input id="eid" type="hidden" name="id">
+
+<input
+id="service"
+name="service_name"
+class="w-full rounded-xl p-3 text-black"
+required>
+
+<input
+id="number"
+name="contact_number"
+class="w-full rounded-xl p-3 text-black"
+required>
+
+<textarea
+id="description"
+name="description"
+rows="4"
+class="w-full rounded-xl p-3 text-black"></textarea>
+
+<select
+id="status"
+name="status"
+class="w-full rounded-xl p-3 text-black">
+
+<option value="Active">Active</option>
+
+<option value="Inactive">Inactive</option>
+
+</select>
+
+<div class="flex justify-end gap-4 pt-4">
+
+<button
+type="button"
+onclick="closeEditModal()"
+class="bg-gray-600 text-white px-6 py-3 rounded-xl">
+
+Cancel
+
+</button>
+
+<button
+type="submit"
+class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-6 py-3 rounded-xl">
+
+Update Contact
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+<script>
+
+function openEditModal(id,name,number,description,status){
+
+document.getElementById("eid").value=id;
+
+document.getElementById("service").value=name;
+
+document.getElementById("number").value=number;
+
+document.getElementById("description").value=description;
+
+document.getElementById("status").value=status;
+
+document.getElementById("editModal").classList.remove("hidden");
+
+document.getElementById("editModal").classList.add("flex");
+
+}
+
+function closeEditModal(){
+
+document.getElementById("editModal").classList.remove("flex");
+
+document.getElementById("editModal").classList.add("hidden");
+
+}
+
+</script>
+</body></html>

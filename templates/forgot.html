@@ -1,0 +1,149 @@
+```html
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Forgot Password</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap');
+*{font-family:Manrope,sans-serif}
+body{
+background:
+linear-gradient(rgba(243,239,232,.58),rgba(243,239,232,.58)),
+url('/static/log.png') center/cover fixed no-repeat;
+min-height:100vh;
+}
+.overlay{min-height:100vh}
+.glass{
+background:rgba(255,255,255,.92);
+backdrop-filter:blur(18px);
+border:1px solid rgba(212,166,58,.22);
+box-shadow:0 20px 60px rgba(16,40,71,.18);
+}
+input,select{background:#fff!important;color:#102847!important;border:1px solid #d8d2c5}
+</style>
+</head>
+
+<body>
+<div class="overlay">
+<!-- Navbar -->
+<nav class="fixed top-0 left-0 w-full bg-[#F3EFE8]/95 backdrop-blur-xl shadow z-50">
+<div class="max-w-7xl mx-auto flex justify-between items-center px-8 py-4">
+<div class="text-3xl font-bold text-yellow-400"><div class="flex items-center gap-3 text-3xl font-extrabold">
+<div class="w-11 h-11 rounded-full bg-[#102847] flex items-center justify-center"><i class="fa-solid fa-screwdriver-wrench text-[#D4A63A]"></i></div>
+<span style="color:#102847">Road</span><span style="color:#D4A63A">Assist</span></div></div>
+<div class="space-x-5">
+<a class="text-[#102847] hover:text-[#D4A63A] font-semibold" href="/">Home</a>
+<a class="text-[#102847] hover:text-[#D4A63A] font-semibold" href="loginpage">Login</a>
+<a class="text-[#102847] hover:text-[#D4A63A] font-semibold" href="userregisterpage">User Register</a>
+<a class="text-[#102847] hover:text-[#D4A63A] font-semibold" href="mechregisterpage">Mechanic Register</a>
+<a class="text-[#102847] hover:text-[#D4A63A] font-semibold" href="allfeedbacks">Feedbacks</a>
+</div>
+</div>
+</nav>
+<!-- Main -->
+<div class="flex justify-center items-center min-h-screen px-6 pt-24">
+<div class="glass rounded-[32px] shadow-2xl p-10 w-full max-w-lg">
+<div class="text-center">
+<div class="w-24 h-24 bg-[#102847] rounded-full mx-auto flex items-center justify-center">
+<i class="fa-solid fa-key text-5xl text-[#D4A63A]"></i>
+</div>
+<h1 class="text-5xl font-extrabold text-[#102847] mt-5">
+
+            Forgot Password?
+
+          </h1>
+<p class="text-gray-900 mt-3">
+
+            Enter your account details to retrieve your password.
+
+          </p>
+</div>
+<div class="text-center text-red-300 font-semibold mt-5">
+
+          {% for message in get_flashed_messages() %}
+          {{message}}
+          {% endfor %}
+
+        </div>
+<form action="getmypass" class="mt-8 space-y-6" method="POST">
+<!-- User Type -->
+<div>
+<label class="text-[#102847] font-semibold">
+<i class="fa-solid fa-users text-[#D4A63A]"></i>
+
+              User Type
+
+            </label>
+<select class="w-full mt-2 p-4 rounded-xl border border-gray-500" id="loginType" name="ltype" onchange="changeLabel()">
+<option value="admin">ADMIN</option>
+<option value="mechanic">MECHANIC</option>
+<option value="user">USER</option>
+</select>
+</div>
+<!-- Email / Phone -->
+<div>
+<label class="text-[#102847] font-semibold" id="selectedOptionLabel">
+<i class="fa-solid fa-envelope text-[#D4A63A]"></i>
+
+              Email
+
+            </label>
+<input class="w-full mt-2 p-4 rounded-xl border border-gray-500" id="email" name="email" placeholder="Enter Email" required="" type="text"/>
+</div>
+<button class="w-full bg-[#102847] hover:bg-[#1b3f6b] text-white py-4 rounded-full font-bold text-lg transition" type="submit">
+<i class="fa-solid fa-unlock-keyhole"></i>
+
+            Get Password
+
+          </button>
+<div class="text-center">
+<a class="text-[#D4A63A] hover:text-[#b88b24] font-semibold" href="loginpage">
+<i class="fa-solid fa-arrow-left"></i>
+
+              Back to Login
+
+            </a>
+</div>
+</form>
+</div>
+</div>
+</div>
+<script>
+
+    function changeLabel() {
+
+      let dropdown = document.getElementById("loginType");
+
+      let label = document.getElementById("selectedOptionLabel");
+
+      let input = document.getElementById("email");
+
+      if (dropdown.value === "mechanic") {
+
+        label.innerHTML = '<i class="fa-solid fa-phone text-yellow-400"></i> Phone';
+
+        input.placeholder = "Enter Phone Number";
+
+      }
+
+      else {
+
+        label.innerHTML = '<i class="fa-solid fa-envelope text-yellow-400"></i> Email';
+
+        input.placeholder = "Enter Email";
+
+      }
+
+    }
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Troubleshoot Solutions</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+*{font-family:Poppins,sans-serif}
+body{
+margin:0;
+background:
+linear-gradient(rgba(91, 77, 54, 0.72),rgba(245,241,234,.84)),
+url('/static/prof.png') center center/cover fixed no-repeat;
+color:#102847;
+}
+.sidebar{
+background:linear-gradient(180deg,#102847,#183A64)!important;
+border-right:3px solid #D4A437;
+}
+.glass{
+background:rgba(255,250,242,.94)!important;
+border:1px solid rgba(212,164,55,.25);
+border-radius:24px;
+box-shadow:0 18px 45px rgba(16,40,71,.12);
+transition:.3s;
+}
+.glass:hover{transform:translateY(-6px)}
+.menu{transition:.3s;border-radius:14px;color:#fff}
+.menu:hover,.active{
+background:#D4A437!important;
+color:#102847!important;
+transform:translateX(6px)
+}
+h1,h2{color:#102847!important}
+p,.text-white,.text-gray-200{color:#233a57!important}
+.text-yellow-400{color:#c79411!important}
+hr{border-color:#d9d2c8!important}
+.bg-black\/30{
+background:#eef3fb!important;
+border-radius:14px;
+}
+.bg-green-500{
+background:#2ca24f!important;
+}
+a.bg-red-600{
+background:rgb(210, 27, 11)!important;
+border-radius:14px;
+}
+a.bg-red-600:hover{background:#cbafac!important}
+</style>
+</head>
+
+<body>
+<div class="flex min-h-screen">
+<aside class="sidebar w-72 text-white shadow-2xl">
+<div class="text-center py-8 border-b border-gray-400">
+<i class="fa-solid fa-car-burst text-5xl text-[#D4A72C] mb-4"></i>
+<h2 class="text-2xl font-bold">
+Admin Panel
+</h2>
+<p class="text-gray-700 text-sm mt-2">
+Vehicle Roadside Assistance
+</p>
+</div>
+<nav class="mt-8 px-5 space-y-3">
+<a class="menu flex items-center gap-4 px-5 py-3 rounded-xl" href="/admindashboard">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+<a class="menu flex items-center gap-4 px-5 py-3 rounded-xl" href="/aviewuserspage">
+<i class="fa-solid fa-users"></i>
+Users
+</a>
+<a class="menu flex items-center gap-4 px-5 py-3 rounded-xl" href="/aviewmechanicspage">
+<i class="fa-solid fa-screwdriver-wrench"></i>
+Mechanics
+</a>
+<a class="menu flex items-center gap-4 px-5 py-3 rounded-xl" href="/aviewrequestspage">
+<i class="fa-solid fa-list-check"></i>
+Requests
+</a>
+<a class="menu flex items-center gap-4 px-5 py-3 rounded-xl" href="/viewfeedbackpage">
+<i class="fa-solid fa-star"></i>
+Feedback
+</a>
+<a class="menu flex items-center gap-4 px-4 py-2.5 rounded-xl" href="/adminemergencypage">
+<i class="fa-solid fa-phone-volume"></i>
+
+                Emergency Contacts
+
+            </a>
+<a class="menu flex items-center gap-4 px-5 py-3 rounded-xl" href="/addtroubleshootpage">
+<i class="fa-solid fa-plus"></i>
+Add Troubleshoot
+</a>
+<a class="menu active flex items-center gap-4 px-5 py-3 rounded-xl" href="/viewtroubleshoot">
+<i class="fa-solid fa-toolbox"></i>
+Troubleshoot List
+</a>
+<a class="menu flex items-center gap-4 px-5 py-3 rounded-xl" href="/">
+<i class="fa-solid fa-right-from-bracket"></i>
+Logout
+</a>
+</nav>
+</aside>
+<main class="flex-1 p-8">
+<div class="glass rounded-2xl p-6 mb-6">
+<h1 class="text-4xl font-extrabold">
+<i class="fa-solid fa-toolbox text-yellow-400 mr-2"></i>
+Troubleshoot Solutions
+</h1>
+<p class="text-gray-300 mt-2">
+Manage all troubleshooting solutions.
+</p>
+</div>
+<!-- TITLE -->
+<div class="max-w-5xl mx-auto">
+<div class="text-center text-red-300 mb-4">
+
+{% for message in get_flashed_messages() %}
+{{message}}
+{% endfor %}
+
+</div>
+<!-- CARDS -->
+<div class="grid lg:grid-cols-3 md:grid-cols-2 gap-4 mt-5">
+
+                {% for r in res %}
+
+                <div class="glass rounded-3xl p-6 shadow-xl hover:scale-105 transition duration-300 flex flex-col fa-hourglass-half">
+<!-- Vehicle -->
+<div class="flex justify-between">
+
+                        {% if r[1]=="Two Wheeler" %}
+
+                        <h2 class="text-yellow-400 text-xl font-bold">
+
+                             Two Wheeler
+
+                        </h2>
+
+                        {% else %}
+
+                        <h2 class="text-yellow-400 text-xl font-bold">
+
+                             Four Wheeler
+
+                        </h2>
+
+                        {% endif %}
+
+                        <span class="bg-green-500 text-white px-2 py-0 rounded-full">
+
+                            {{r[6]}}
+
+                        </span>
+</div>
+<hr class="my-1 border-gray-600"/>
+<p class="text-white">
+<b class="text-yellow-400">
+
+                             Category :
+
+                        </b>
+
+                        {{r[2]}}
+
+                    </p>
+<p class="text-white mt-1">
+<b class="text-yellow-400">
+
+                             Problem :
+
+                        </b>
+
+                        {{r[3]}}
+
+                    </p>
+<p class="text-white mt-1">
+<b class="text-yellow-400">
+
+                             Tools :
+
+                        </b>
+
+                        {{r[5]}}
+
+                    </p>
+<p class="text-red-300 mt-1">
+
+                        ⚠ {{r[7]}}
+
+                    </p>
+<!-- Solution -->
+<div class="mt-3 bg-black/30 rounded-xl p-2">
+<h3 class="text-yellow-400 font-semibold">
+
+                            Solution
+
+                        </h3>
+<p class="text-gray-200 mt-1">
+
+                            {{r[4]}}
+
+                        </p>
+</div>
+<!-- Buttons -->
+<div class="mt-auto pt-4">
+<a class="block w-full bg-red-600 hover:bg-red-700 text-center py-2 rounded-lg text-white font-semibold transition" href="deletetroubleshoot?id={{r[0]}}" onclick="return confirm('Delete this solution?')">
+<i class="fa-solid fa-trash"></i>
+
+                            Delete
+
+                        </a>
+</div>
+</div>
+
+                {% endfor %}
+
+            </div>
+</div>
+</main>
+</div>
+</body>
+
+</html>

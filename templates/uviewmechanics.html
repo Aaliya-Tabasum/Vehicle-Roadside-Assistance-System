@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Nearby Mechanics</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet"/>
+<style>
+body{
+background:
+linear-gradient(rgba(12,25,45,.48),rgba(12,25,45,.48)),
+url('/static/req.png') center right/cover fixed no-repeat;
+min-height:100vh;
+}
+.overlay{min-height:100vh}
+.glass{
+background:rgba(248,245,240,.93);
+backdrop-filter:blur(18px);
+border:1px solid rgba(212,166,58,.18);
+box-shadow:0 20px 50px rgba(0,0,0,.22);
+}
+input{
+background:#fff;
+color:#102847;
+border:1px solid #d8d2c5;
+}
+input::placeholder{color:#64748b}
+</style>
+</head>
+<body>
+<div class="overlay">
+<!-- Navbar -->
+<nav class="fixed top-0 left-0 w-full bg-[#102847]/95 backdrop-blur-xl border-b border-[#D4A63A]/20 shadow-xl z-50">
+<div class="max-w-7xl mx-auto flex justify-between items-center px-8 py-4">
+<div class="text-3xl font-bold text-yellow-400">
+<div class="flex items-center gap-3 text-3xl font-bold">
+<div class="w-11 h-11 rounded-full bg-[#D4A63A] flex items-center justify-center">
+<i class="fa-solid fa-screwdriver-wrench text-[#102847]"></i>
+</div>
+<span style="color:white">Road</span><span style="color:#D4A63A">Assist</span>
+</div>
+</div>
+<div class="space-x-3">
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="feedbackpage">Feedback</a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="myrequests">My Requests</a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="uviewmytravelspage">My Travels</a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="addtravelpage">Add Travel</a>
+<!--<a href="emergency" class="text-white hover:text-yellow-400">Emergency</a>-->
+<a class="text-red-300 hover:text-red-200 font-semibold" href="/">Logout</a>
+</div>
+</div>
+</nav>
+<div class="pt-28 pb-10 px-8">
+<h1 class="text-5xl font-extrabold text-white text-center">
+<i class="fa-solid fa-user-gear"></i>
+
+                Nearby Mechanics
+
+            </h1>
+<p class="text-center text-gray-200 mt-3 text-lg">
+
+                Search mechanics by shop location and request roadside assistance.
+
+            </p>
+<!-- Search -->
+<div class="max-w-xl mx-auto mt-8">
+<div class="relative">
+<i class="fa-solid fa-magnifying-glass absolute left-5 top-4 text-yellow-400"></i>
+<input class="w-full pl-12 pr-4 py-4 rounded-full border border-[#D4A63A] bg-white text-[#102847] shadow-lg" id="searchInput" placeholder="Search by Shop Address..." type="text"/>
+</div>
+</div>
+<div class="text-center text-red-300 font-semibold mt-5">
+
+                {% for message in get_flashed_messages() %}
+                {{message}}
+                {% endfor %}
+
+            </div>
+<!-- Cards -->
+<div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mt-10" id="mechanicContainer">
+
+                {% for r in res %}
+
+                <div class="glass rounded-[28px] p-6 hover:-translate-y-2 transition duration-300">
+<div class="flex justify-between items-center">
+<h2 class="text-2xl font-bold text-[#102847]">
+
+                            {{r[1]}}
+
+                        </h2>
+
+                        {% if r[13] == "Available" %}
+
+<span class="bg-green-600 text-white px-3 py-1 rounded-full">
+    Available
+</span>
+
+{% else %}
+
+<span class="bg-orange-500 text-white px-3 py-1 rounded-full">
+    Busy
+</span>
+
+{% endif %}
+
+                    </div>
+<div class="mt-6 space-y-3 text-[#334155]">
+<p><i class="fa-solid fa-phone text-yellow-400"></i> {{r[2]}}</p>
+<p><i class="fa-solid fa-shop text-yellow-400"></i> {{r[3]}}</p>
+<p><i class="fa-solid fa-location-dot text-yellow-400"></i> {{r[4]}}</p>
+<p><i class="fa-solid fa-mobile-screen text-yellow-400"></i> {{r[5]}}</p>
+<p><i class="fa-solid fa-house text-yellow-400"></i> {{r[8]}}</p>
+</div>
+<div class="grid grid-cols-2 gap-4 mt-8">
+
+                        {% if r[13] == "Available" %}
+
+<a class="bg-[#D4A63A] hover:bg-[#c99728] text-[#102847] text-center py-3 rounded-xl font-bold" href="reqassi?id={{r[0]}}">
+<i class="fa-solid fa-wrench"></i>
+    Request
+</a>
+
+{% else %}
+
+<a class="bg-[#D4A63A] hover:bg-[#c99728] text-[#102847] text-center py-3 rounded-xl font-bold" href="#" onclick="return busyMechanic('{{r[0]}}')">
+<i class="fa-solid fa-wrench"></i>
+Request
+</a>
+
+{% endif %}
+
+                        <a class="bg-[#102847] hover:bg-[#1b3f6b] text-white text-center py-3 rounded-xl font-bold" href="viewmechprofile?id={{r[0]}}">
+<i class="fa-solid fa-user"></i>
+
+                            Profile
+
+                        </a>
+</div>
+</div>
+
+                {% endfor %}
+
+            </div>
+</div>
+</div>
+<script>
+
+        document.getElementById('searchInput').addEventListener('keyup', function (e) {
+
+            fetch('/mechanics', {
+
+                method: 'POST',
+
+                headers: { 'Content-Type': 'application/json' },
+
+                body: JSON.stringify({ searchTerm: e.target.value })
+
+            })
+
+                .then(res => res.json())
+
+                .then(data => {
+
+                    const container = document.getElementById("mechanicContainer");
+
+                    container.innerHTML = "";
+
+                    data.forEach(row => {
+
+                        container.innerHTML += `
+
+<div class="glass rounded-3xl shadow-2xl p-6 hover:scale-105 duration-300">
+
+<div class="flex justify-between items-center">
+
+<h2 class="text-2xl font-bold text-yellow-400">${row[0]}</h2>
+
+${row[7] == "Available"
+?
+`<span class="bg-green-600 text-white px-3 py-1 rounded-full">
+Available
+</span>`
+:
+`<span class="bg-orange-500 text-white px-3 py-1 rounded-full">
+Busy
+</span>`
+}
+</div>
+
+<div class="mt-6 space-y-3 text-gray-200">
+
+<p>📞 ${row[1]}</p>
+
+<p>🏪 ${row[2]}</p>
+
+<p>📍 ${row[3]}</p>
+
+<p>📱 ${row[4]}</p>
+
+
+
+</div>
+
+<div class="grid grid-cols-2 gap-4 mt-8">
+
+${row[7] == "Available"
+?
+`<a href="reqassi?id=${row[6]}"
+class="bg-yellow-400 text-black text-center py-3 rounded-xl font-bold">
+Request
+</a>`
+:
+`<a href="#" onclick="return busyMechanic(${row[6]})"
+class="bg-yellow-400 text-black text-center py-3 rounded-xl font-bold">Request</a>`
+}
+
+<a href="viewmechprofile?id=${row[6]}"
+class="bg-blue-600 text-white text-center py-3 rounded-xl font-bold">
+Profile
+
+
+</a>
+
+</div>
+
+</div>`;
+
+                    });
+
+                });
+
+        });
+
+    </script>
+<script>
+function busyMechanic(id){
+ if(confirm("⚠️ This mechanic is currently busy.\n\nPress OK to send the request anyway.\nPress Cancel to choose another mechanic.")){
+   window.location='reqassi?id='+id;
+ }
+ return false;
+}
+</script>
+</body>
+
+</html>

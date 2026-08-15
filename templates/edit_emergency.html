@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Emergency Contact</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+body{
+background:#0f172a;
+font-family:Arial,Helvetica,sans-serif;
+}
+.glass{
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,.1);
+}
+</style>
+</head>
+
+<body>
+
+<div class="max-w-3xl mx-auto mt-10">
+
+<div class="glass rounded-2xl p-8">
+
+<h2 class="text-3xl text-yellow-400 font-bold mb-8 text-center">
+Edit Emergency Contact
+</h2>
+
+<form action="/updateemergency" method="POST" class="space-y-5">
+
+<input type="hidden" name="id" value="{{contact[0]}}">
+
+<div>
+<label class="text-white">Service Name</label>
+<input
+type="text"
+name="service_name"
+value="{{contact[1]}}"
+required
+class="w-full mt-2 p-3 rounded-lg">
+</div>
+
+<div>
+<label class="text-white">Contact Number</label>
+<input
+type="text"
+name="contact_number"
+value="{{contact[2]}}"
+required
+class="w-full mt-2 p-3 rounded-lg">
+</div>
+
+<div>
+<label class="text-white">Description</label>
+<textarea
+name="description"
+rows="4"
+class="w-full mt-2 p-3 rounded-lg"
+required>{{contact[3]}}</textarea>
+</div>
+
+<div>
+<label class="text-white">Status</label>
+
+<select
+name="status"
+class="w-full mt-2 p-3 rounded-lg">
+
+<option value="Active"
+{% if contact[4]=='Active' %}selected{% endif %}>
+Active
+</option>
+
+<option value="Inactive"
+{% if contact[4]=='Inactive' %}selected{% endif %}>
+Inactive
+</option>
+
+</select>
+</div>
+
+<div class="flex gap-4 pt-4">
+
+<button
+type="submit"
+class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-6 py-3 rounded-lg">
+Update Contact
+</button>
+
+<a
+href="/adminemergencypage"
+class="bg-gray-700 hover:bg-gray-800 text-white px-6 py-3 rounded-lg">
+Cancel
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+</html>

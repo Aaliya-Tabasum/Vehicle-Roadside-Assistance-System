@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>All Assistance Requests</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{font-family:Poppins,sans-serif}
+body{margin:0;background:url('/static/images/req.png') center/cover fixed no-repeat;background-color:#503f19;}
+body:before{content:'';position:fixed;inset:0;background:linear-gradient(rgba(246,241,232,.70),rgba(17, 2, 56, 0.78));backdrop-filter:blur(3px);z-index:-1;}
+.sidebar{background:#13294B!important;backdrop-filter:blur(18px);border-right:2px solid #d4a72c}
+.glass{background:rgba(246,241,232,.93)!important;border:1px solid rgba(212,167,44,.28);backdrop-filter:blur(14px);box-shadow:0 14px 34px rgba(19,41,75,.16)}
+.menu{transition:.3s;color:#fff}
+.menu:hover,.active{background:#facc15!important;color:#111!important;transform:translateX(6px)}
+.card,.glass{transition:.35s}
+.card:hover,.glass:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(250,204,21,.18)}
+hr{border-color:rgba(250,204,21,.18)}
+</style>
+
+
+</head>
+
+<body>
+
+<div class="flex min-h-screen">
+
+<aside class="sidebar w-72 text-white shadow-2xl">
+
+<div class="text-center py-8 border-b border-gray-700">
+
+<i class="fa-solid fa-car-burst text-5xl text-[#d4a72c] mb-4"></i>
+
+<h2 class="text-2xl font-bold">
+Admin Panel
+</h2>
+
+<p class="text-gray-400 text-sm mt-2">
+Vehicle Roadside Assistance
+</p>
+
+</div>
+
+<nav class="mt-8 px-5 space-y-3">
+
+<a href="/admindashboard"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="/aviewuserspage"
+class="menu  flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-users"></i>
+Users
+</a>
+
+<a href="/aviewmechanicspage"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-screwdriver-wrench"></i>
+Mechanics
+</a>
+
+<a href="/aviewrequestspage"
+class="menu active flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-list-check"></i>
+Requests
+
+</a>
+
+<a href="/viewfeedbackpage"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-star"></i>
+Feedback
+
+</a>
+
+<a href="/adminemergencypage"
+               class="menu flex items-center gap-4 px-4 py-2.5 rounded-xl">
+
+                <i class="fa-solid fa-phone-volume"></i>
+
+                Emergency Contacts
+
+            </a>
+
+<a href="addtroubleshootpage" 
+class="menu  flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-add"></i>
+                        Add Troubleshoot
+
+</a>
+
+<a href="/viewtroubleshoot"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-toolbox"></i>
+Troubleshoot
+</a>
+
+<a href="/"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-right-from-bracket"></i>
+Logout
+</a>
+
+</nav>
+
+</aside>
+
+<main class="flex-1 p-8">
+
+<div class="glass rounded-2xl p-6">
+
+<h1 class="text-4xl font-bold text-left text-[#13294B]">
+
+<i class="fa-solid fa-car-burst"></i>
+
+All Assistance Requests
+
+</h1>
+
+<p class="text-left text-[#5b6475] mt-2">
+
+Monitor every roadside assistance request.
+
+</p>
+
+</div>
+
+
+<!-- PAGE -->
+
+<div class="mt-8">
+
+
+<div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mt-10">
+
+{% for r in requests %}
+
+<div class="glass rounded-2xl p-4 shadow-lg hover:scale-105 duration-300">
+
+<div class="flex justify-between items-center">
+
+<h2 class="text-xl font-bold text-[#d4a72c]">
+
+({{r[0]}})
+
+</h2>
+
+{% if r[1]=="Pending" %}
+
+<span class="bg-yellow-500 text-black px-3 py-1 rounded-full font-bold">
+
+Pending
+
+</span>
+
+{% elif r[1]=="Accepted" %}
+
+<span class="bg-[#2F5BEA] text-white px-3 py-1 rounded-full font-bold">
+
+Accepted
+
+</span>
+
+{% elif r[1]=="Completed" %}
+
+<span class="bg-green-600 text-white px-3 py-1 rounded-full font-bold">
+
+Completed
+
+</span>
+
+{% else %}
+
+<span class="bg-red-600 text-white px-3 py-1 rounded-full font-bold">
+
+Rejected
+
+</span>
+
+{% endif %}
+
+</div>
+
+<div class="space-y-2 mt-4 text-[#233a63] text-sm">
+
+<p><i class="fa-solid fa-user text-[#d4a72c]"></i> <b>User :</b> {{r[7]}}</p>
+
+<p><i class="fa-solid fa-phone text-[#d4a72c]"></i> {{r[8]}}</p>
+
+<p><i class="fa-solid fa-screwdriver-wrench text-[#d4a72c]"></i> <b>Mechanic :</b> {{r[9]}}</p>
+
+<p><i class="fa-solid fa-mobile-screen text-[#d4a72c]"></i> {{r[10]}}</p>
+
+<hr class="border-gray-500">
+
+<!-- Direct Service Request -->
+
+{% if r[2] %}
+
+<hr class="border-gray-500">
+
+<p class="text-[#d4a72c] font-bold">
+
+<i class="fa-solid fa-route"></i>
+
+Direct Service Request
+
+</p>
+<p>
+    <i class="fa-solid fa-car text-[#d4a72c]"></i>
+    <b>Vehicle :</b> {{r[2]}}
+</p>
+
+<p>
+    <i class="fa-solid fa-triangle-exclamation text-[#d4a72c]"></i>
+    <b>Problem :</b> {{r[3]}}
+</p>
+
+<p>
+    <i class="fa-solid fa-location-dot text-[#d4a72c]"></i>
+    <b>Location :</b> {{r[4]}}
+</p>
+
+<p>
+    <i class="fa-solid fa-car-side text-[#d4a72c]"></i>
+    <b>Model :</b> {{r[5]}}
+</p>
+
+<p>
+    <i class="fa-solid fa-list text-[#d4a72c]"></i>
+    <b>Problem Type :</b> {{r[6]}}
+</p>
+
+{% endif %}
+
+
+<!-- Journey Request -->
+
+{% if r[11] %}
+
+<hr class="border-gray-500">
+
+<p class="text-[#d4a72c] font-bold">
+
+<i class="fa-solid fa-route"></i>
+
+Journey Details
+
+</p>
+
+<p><b>From :</b> {{r[11]}}</p>
+
+<p><b>To :</b> {{r[12]}}</p>
+
+<p><b>Date :</b> {{r[13]}}</p>
+
+<p><b>Time :</b> {{r[14]}}</p>
+
+{% endif %}
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+</body>
+
+</html>

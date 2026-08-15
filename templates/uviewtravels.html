@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>My Travels</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet"/>
+<style>
+body{
+background:
+linear-gradient(rgba(10,22,40,.45),rgba(10,22,40,.45)),
+url('/static/travel1.png') center right/cover fixed no-repeat;
+min-height:100vh;
+font-family:'Segoe UI',sans-serif;
+}
+.overlay{min-height:100vh}
+.glass{
+background:rgba(248,245,240,.94);
+backdrop-filter:blur(18px);
+border:1px solid rgba(212,166,58,.18);
+box-shadow:0 18px 50px rgba(0,0,0,.22);
+}
+</style>
+</head>
+<body>
+<div class="overlay">
+<!-- Navbar -->
+<nav class="fixed top-0 left-0 w-full bg-[#102847]/92 backdrop-blur-xl border-b border-[#D4A63A]/20 shadow-xl z-50">
+<div class="max-w-7xl mx-auto flex justify-between items-center px-8 py-4">
+<div class="text-3xl font-bold text-yellow-400">
+<div class="flex items-center gap-3 text-3xl font-bold">
+<div class="w-11 h-11 rounded-full bg-[#D4A63A] flex items-center justify-center">
+<i class="fa-solid fa-route text-[#102847]"></i>
+</div>
+<span style="color:white">Road</span><span style="color:#D4A63A">Assist</span>
+</div></div>
+<div class="space-x-3">
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="addtravelpage">
+            Add Travel
+          </a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="service_request">
+            Service Request
+          </a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="myrequests">
+            My Requests
+          </a>
+<a class="bg-[#D4A63A] text-[#102847] px-5 py-2 rounded-full font-bold" href="uviewmytravelspage">
+            My Travels
+          </a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="feedbackpage">
+            Feedback
+          </a>
+<!--<a href="emergency" class="text-white hover:text-yellow-400">
+            Emergency
+          </a>-->
+<a class="text-red-300 hover:text-red-200 font-semibold" href="/">
+            Logout
+          </a>
+</div>
+</div>
+</nav>
+<!-- Content -->
+<div class="pt-28 pb-10 px-8">
+<h1 class="text-center text-5xl font-extrabold text-white">
+<i class="fa-solid fa-road"></i>
+
+        My Travel Plans
+
+      </h1>
+<p class="text-center text-gray-200 mt-3 text-lg">
+
+        Select a journey and request roadside assistance whenever needed.
+
+      </p>
+<div class="text-center text-red-300 font-semibold mt-5">
+
+        {% for message in get_flashed_messages() %}
+        {{message}}
+        {% endfor %}
+
+      </div>
+<div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mt-10">
+
+        {% for r in res %}
+
+        <div class="glass rounded-[28px] p-6 transition hover:-translate-y-2">
+<div class="flex justify-between items-center">
+<span class="bg-yellow-400 text-black px-4 py-1 rounded-full font-bold">
+
+              Journey
+
+            </span>
+<i class="fa-solid fa-route text-3xl text-yellow-400"></i>
+</div>
+<div class="mt-6 space-y-4 text-[#102847]">
+<p>
+<i class="fa-solid fa-location-dot text-yellow-400"></i>
+<strong>Source:</strong><br/>
+
+              {{r[1]}}
+
+            </p>
+<p>
+<i class="fa-solid fa-flag-checkered text-yellow-400"></i>
+<strong>Destination:</strong><br/>
+
+              {{r[2]}}
+
+            </p>
+<p>
+<i class="fa-solid fa-calendar-days text-yellow-400"></i>
+<strong>Date:</strong>
+
+              {{r[3]}}
+
+            </p>
+<p>
+<i class="fa-solid fa-clock text-yellow-400"></i>
+<strong>Time:</strong>
+
+              {{r[4]}}
+
+            </p>
+</div>
+<a class="block mt-8 bg-[#102847] hover:bg-[#183a64] text-white font-bold text-center py-3 rounded-xl" href="uviewmechanicspage?id={{r[0]}}">
+<i class="fa-solid fa-screwdriver-wrench"></i>
+
+            Get Roadside Help
+
+          </a>
+</div>
+
+        {% endfor %}
+
+      </div>
+</div>
+</div>
+</body>
+</html>

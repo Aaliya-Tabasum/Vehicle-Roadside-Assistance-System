@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mechanic Roadside Assistance</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Manrope:wght@400;500;600;700&display=swap');
+
+html{scroll-behavior:smooth;}
+body{
+font-family:'Manrope',sans-serif;
+background:#F3EFE8;
+margin:0;
+overflow-x:hidden;
+}
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+padding:120px 0 80px;
+background:
+linear-gradient(90deg,
+rgba(243,239,232,.92) 0%,
+rgba(243,239,232,.82) 35%,
+rgba(243,239,232,.45) 65%,
+rgba(243,239,232,.08) 100%),
+url('/static/hero-mechanic.png') right center/cover no-repeat;
+}
+.glass{
+background:rgba(255,255,255,.86);
+backdrop-filter:blur(18px);
+border:1px solid rgba(226,220,209,.9);
+border-radius:24px;
+box-shadow:0 15px 45px rgba(16,40,71,.08);
+transition:.35s;
+}
+.glass:hover{
+transform:translateY(-6px);
+box-shadow:0 25px 60px rgba(16,40,71,.15);
+}
+h1{letter-spacing:-2px;text-shadow:0 10px 30px rgba(16,40,71,.12);}
+a{transition:.35s;}
+::selection{background:#D4A63A;color:#fff;}
+</style>
+</head>
+
+<body>
+
+<nav class="fixed top-0 left-0 w-full z-50 bg-white/75 backdrop-blur-xl shadow-lg border-b border-[#E5DED2]">
+<div class="max-w-7xl mx-auto px-10 py-6 flex justify-between items-center">
+<div class="flex items-center gap-3 text-4xl font-black">
+<div class="w-12 h-12 rounded-full bg-[#102847] flex items-center justify-center">
+<i class="fa-solid fa-screwdriver-wrench text-[#D4A63A]"></i>
+</div>
+<div>
+<span class="text-[#102847]">Road</span><span class="text-[#D4A63A]">Assist</span>
+</div>
+</div>
+
+<div class="space-x-4 hidden lg:block">
+<a href="/" class="text-[#102847] hover:text-[#D4A63A] font-semibold">Home</a>
+<a href="userregisterpage" class="text-[#102847] hover:text-[#D4A63A] font-semibold">User Register</a>
+<a href="mechregisterpage" class="text-[#102847] hover:text-[#D4A63A] font-semibold">Mechanic Register</a>
+<a href="allfeedbacks" class="text-[#102847] hover:text-[#D4A63A] font-semibold">Feedback</a>
+<a href="selftroubleshoot" class="text-[#102847] hover:text-[#D4A63A] font-semibold">Self Troubleshoot</a>
+<a href="emergency" class="text-[#102847] hover:bg-red-600 hover:text-white px-4 py-2 rounded-full font-semibold">Emergency</a>
+</div>
+</div>
+</nav>
+
+<section class="hero">
+<div class="max-w-7xl mx-auto w-full px-8">
+<div class="max-w-2xl">
+<h1 class="text-6xl md:text-7xl font-extrabold leading-[1.05] text-[#102847]" style="font-family:'Playfair Display',serif;">
+Vehicle Roadside<br>
+<span class="text-[#D4A63A]">Assistance System</span>
+</h1>
+
+<div class="w-24 h-1 bg-[#D4A63A] rounded-full mt-8 mb-8"></div>
+
+<p class="text-lg md:text-xl text-[#4B5563] leading-8">
+Get instant roadside assistance whenever your vehicle breaks down.
+Search nearby mechanics, send service requests, track repair status,
+access self-troubleshooting solutions, and stay safe throughout your journey.
+</p>
+
+<div class="mt-10 flex flex-wrap gap-4">
+<a href="userregisterpage" class="bg-[#102847] text-white px-8 py-3 rounded-full font-semibold"><i class="fa-solid fa-user-plus mr-2"></i>Get Started</a>
+<a href="loginpage" class="bg-white border border-[#102847] text-[#102847] px-8 py-3 rounded-full font-semibold"><i class="fa-solid fa-right-to-bracket mr-2"></i>Login</a>
+<a href="selftroubleshoot" class="bg-emerald-600 text-white px-8 py-3 rounded-full font-semibold"><i class="fa-solid fa-screwdriver-wrench mr-2"></i>Self Troubleshoot</a>
+<a href="emergency" class="bg-red-600 text-white px-8 py-3 rounded-full font-semibold"><i class="fa-solid fa-triangle-exclamation mr-2"></i>Emergency Help</a>
+</div>
+</div>
+</div>
+</section>
+
+<section class="py-20 bg-[#ECEAE5]">
+<div class="max-w-7xl mx-auto px-8">
+<h2 class="text-center text-5xl font-bold text-[#102847]" style="font-family:'Playfair Display',serif;">Our Features</h2>
+
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-14">
+
+<div class="glass p-10 text-center">
+<div class="w-24 h-24 rounded-full bg-[#102847] flex items-center justify-center mx-auto"><i class="fa-solid fa-location-dot text-4xl text-[#D4A63A]"></i></div>
+<h3 class="text-xl font-bold text-[#102847] mt-6">Nearby Mechanics</h3>
+<p class="text-[#5F6775] mt-4">Find trusted mechanics near your travel location within seconds.</p>
+</div>
+
+<div class="glass p-10 text-center">
+<div class="w-24 h-24 rounded-full bg-[#102847] flex items-center justify-center mx-auto"><i class="fa-solid fa-truck-medical text-4xl text-[#D4A63A]"></i></div>
+<h3 class="text-xl font-bold text-[#102847] mt-6">Quick Assistance</h3>
+<p class="text-[#5F6775] mt-4">Raise service requests and receive instant roadside support.</p>
+</div>
+
+<div class="glass p-10 text-center">
+<div class="w-24 h-24 rounded-full bg-[#102847] flex items-center justify-center mx-auto"><i class="fa-solid fa-wrench text-4xl text-[#D4A63A]"></i></div>
+<h3 class="text-xl font-bold text-[#102847] mt-6">Self Troubleshooting</h3>
+<p class="text-[#5F6775] mt-4">View DIY repair tips before requesting assistance.</p>
+</div>
+
+<div class="glass p-10 text-center">
+<div class="w-24 h-24 rounded-full bg-[#102847] flex items-center justify-center mx-auto"><i class="fa-solid fa-triangle-exclamation text-4xl text-[#D4A63A]"></i></div>
+<h3 class="text-xl font-bold text-[#102847] mt-6">Emergency Help</h3>
+<p class="text-[#5F6775] mt-4">Access emergency numbers including Police, Ambulance, Fire and Highway helplines.</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<footer class="bg-[#102847] py-10 text-center text-white">
+<p class="text-xl font-semibold tracking-widest uppercase">Vehicle Roadside Assistance Service</p>
+<p class="text-gray-300 mt-2">Reliable Roadside Assistance • Available 24/7</p>
+</footer>
+</body>
+
+</html>

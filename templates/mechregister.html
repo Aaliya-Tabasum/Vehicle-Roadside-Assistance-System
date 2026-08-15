@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Mechanic Registration</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Manrope:wght@400;500;600;700&display=swap');
+body{font-family:'Manrope',sans-serif;background:#F3EFE8;min-height:100vh}
+.overlay{
+background:
+linear-gradient(90deg,rgba(243,239,232,.92),rgba(243,239,232,.82),rgba(243,239,232,.35),transparent),
+url('/static/mech_reg3.png') right center/cover no-repeat;
+min-height:100vh;
+}
+.glass{
+background:rgba(255,255,255,.94);
+backdrop-filter:blur(18px);
+border:1px solid #E5DDD0;
+border-radius:28px;
+box-shadow:0 20px 50px rgba(16,40,71,.12);
+}
+label{color:#102847!important;font-weight:600}
+input,textarea{
+background:#fff!important;
+color:#1f2937!important;
+border:1px solid #d6d3d1!important;
+}
+input::placeholder,textarea::placeholder{color:#9ca3af}
+</style>
+</head>
+<body>
+<div class="overlay">
+<!-- Navbar -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-white/75 backdrop-blur-xl shadow-lg border-b border-[#E5DED2]">
+<div class="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
+<div class="text-3xl font-bold text-yellow-400">
+<div class="flex items-center gap-3 text-4xl font-black">
+<div class="w-12 h-12 rounded-full bg-[#102847] flex items-center justify-center">
+<i class="fa-solid fa-screwdriver-wrench text-[#D4A63A]"></i>
+</div>
+<div><span style="color:#102847">Road</span><span style="color:#D4A63A">Assist</span></div>
+</div></div>
+<div class="space-x-3">
+<a class="text-[#102847] hover:text-[#D4A63A] px-5 py-2 rounded-full font-semibold duration-300" href="/">
+            Home
+          </a>
+<a class="text-[#102847] hover:text-[#D4A63A] px-5 py-2 rounded-full font-semibold duration-300" href="userregisterpage">
+            User Register
+          </a>
+<a class="text-[#102847] hover:text-[#D4A63A] px-5 py-2 rounded-full font-semibold duration-300" href="mechregisterpage">
+            Mechanic Register
+          </a>
+<a class="text-[#102847] hover:text-[#D4A63A] px-5 py-2 rounded-full font-semibold duration-300" href="allfeedbacks">
+            Feedback
+          </a>
+<a class="text-[#102847] hover:text-[#D4A63A] px-5 py-2 rounded-full font-semibold duration-300" href="selftroubleshoot">
+            Self Troubleshoot
+          </a>
+<a class="text-[#102847] hover:bg-red-600 hover:text-white px-5 py-2 rounded-full font-semibold duration-300" href="emergency">
+    Emergency Help
+</a>
+</div>
+</div>
+</nav>
+<!-- Form -->
+<div class="pt-20 pb-10">
+<div class="max-w-4xl mx-auto px-24">
+<div class="glass rounded-3xl shadow-2xl p-10">
+<h1 class="text-5xl text-center font-bold text-[#102847]">
+<i class="fa-solid fa-user-gear text-[#D4A63A]"></i>
+
+            Mechanic Registration
+
+          </h1>
+<p class="text-center text-gray-600 mt-2 mb-6">
+
+            Register your workshop and start providing roadside assistance.
+
+          </p>
+<div class="text-center text-red-300 font-semibold mb-6">
+
+            {% for message in get_flashed_messages() %}
+
+            {{message}}
+
+            {% endfor %}
+
+          </div>
+<form action="mechregister" enctype="multipart/form-data" method="POST">
+<div class="grid md:grid-cols-2 gap-x-5 gap-y-3">
+<div>
+<label class="block text-sm font-semibold mb-2">
+
+                  Mechanic Name
+
+                </label>
+<input class="mt-1 w-full rounded-xl px-4 py-3 text-sm" name="name" required="" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-semibold mb-2">
+
+                  Phone Number
+
+                </label>
+<input class="mt-1 w-full rounded-xl px-4 py-3 text-sm" id="phone" name="phone" onchange="validatephno()" required="" type="number"/>
+</div>
+<div>
+<label class="block text-sm font-semibold mb-2">
+
+                  Shop Name
+
+                </label>
+<input class="mt-1 w-full rounded-xl px-4 py-3 text-sm" name="sname" required="" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-semibold mb-2">
+
+                  Alternate Phone
+
+                </label>
+<input class="mt-1 w-full rounded-xl px-4 py-3 text-sm" id="altphone" name="altphone" onchange="validatephno2()" required="" type="number"/>
+</div>
+<div class="md:col-span-2">
+<label class="block text-sm font-semibold mb-2">
+
+                  Shop Address
+
+                </label>
+<textarea class="mt-1 w-full rounded-xl px-4 py-3 text-sm" name="saddress" required="" rows="2"></textarea>
+</div>
+<div>
+<label class="block text-sm font-semibold mb-2">
+
+                  Upload Your Photo
+
+                </label>
+<input accept="image/*" class="mt-1 w-full text-sm" name="mimage" required="" type="file"/>
+</div>
+<div>
+<label class="block text-sm font-semibold mb-2">
+
+                  Upload Shop Certificate
+
+                </label>
+<input accept="image/*" class="mt-1 w-full text-sm" name="certi" required="" type="file"/>
+</div>
+<div class="md:col-span-2">
+<label class="block text-sm font-semibold mb-2">
+
+                  Password
+
+                </label>
+<input class="mt-1 w-full rounded-xl px-4 py-3 text-sm" name="password" required="" type="password"/>
+</div>
+</div>
+<div class="text-center mt-6">
+<button class="bg-[#102847] hover:bg-[#1E3A5F] text-white font-bold px-10 py-3 rounded-full text-base transition duration-300" type="submit">
+<i class="fa-solid fa-user-plus"></i>
+
+                Register Mechanic
+
+              </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+<script>
+
+    function validatephno() {
+
+      var ph = document.getElementById("phone").value;
+
+      if (ph.length != 10) {
+
+        alert("Invalid Phone Number");
+
+        document.getElementById("phone").value = "";
+
+      }
+
+    }
+
+    function validatephno2() {
+
+      var ph = document.getElementById("altphone").value;
+
+      if (ph.length != 10) {
+
+        alert("Invalid Alternate Phone Number");
+
+        document.getElementById("altphone").value = "";
+
+      }
+
+    }
+
+  </script>
+</body>
+</html>

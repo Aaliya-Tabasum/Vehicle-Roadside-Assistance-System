@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>Edit Profile</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-gray-900">
+
+<div class="max-w-3xl mx-auto mt-12 bg-white rounded-3xl p-8">
+
+<h1 class="text-3xl font-bold mb-8 text-center">
+
+Edit Profile
+
+</h1>
+
+<form action="/updatemechanic" method="post">
+
+<div class="grid md:grid-cols-2 gap-5">
+
+<input
+type="text"
+name="name"
+value="{{mech[1]}}"
+class="border p-3 rounded-xl"
+placeholder="Name">
+
+<input
+type="text"
+name="phone"
+value="{{mech[2]}}"
+class="border p-3 rounded-xl"
+placeholder="Phone">
+
+<input
+type="text"
+name="sname"
+value="{{mech[3]}}"
+class="border p-3 rounded-xl"
+placeholder="Workshop Name">
+
+<input
+type="text"
+name="saddress"
+value="{{mech[4]}}"
+class="border p-3 rounded-xl"
+placeholder="Workshop Address">
+
+<input
+type="text"
+name="altphone"
+value="{{mech[5]}}"
+class="border p-3 rounded-xl"
+placeholder="Alternate Phone">
+
+<input
+type="text"
+name="haddress"
+value="{{mech[8]}}"
+class="border p-3 rounded-xl"
+placeholder="Home Address">
+
+</div>
+
+<button
+class="mt-8 bg-yellow-500 px-8 py-3 rounded-xl font-bold w-full">
+
+Update Profile
+
+</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

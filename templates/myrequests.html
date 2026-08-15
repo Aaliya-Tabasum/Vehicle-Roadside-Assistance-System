@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>My Assistance Requests</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet"/>
+<style>
+body{
+background:
+linear-gradient(rgba(10,22,40,.55),rgba(10,22,40,.55)),
+url('/static/travel1.png') center right/cover fixed no-repeat;
+min-height:100vh;
+font-family:'Segoe UI',sans-serif;
+}
+.overlay{min-height:100vh}
+.glass{
+background:rgba(248,245,240,.94);
+backdrop-filter:blur(18px);
+border:1px solid rgba(212,166,58,.18);
+box-shadow:0 18px 45px rgba(0,0,0,.22);
+transition:.3s;
+}
+.glass:hover{transform:translateY(-6px)}
+</style>
+</head>
+<body>
+<div class="overlay">
+<!-- Navbar -->
+<nav class="fixed top-0 left-0 w-full bg-[#102847]/95 backdrop-blur-xl border-b border-[#D4A63A]/20 shadow-xl z-50">
+<div class="max-w-7xl mx-auto flex justify-between items-center px-8 py-4">
+<div class="text-3xl font-bold text-yellow-400">
+<div class="flex items-center gap-3 text-3xl font-bold">
+<div class="w-11 h-11 rounded-full bg-[#D4A63A] flex items-center justify-center">
+<i class="fa-solid fa-route text-[#102847]"></i>
+</div>
+<span style="color:white">Road</span><span style="color:#D4A63A">Assist</span>
+</div></div>
+<div class="space-x-3">
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="addtravelpage">
+            Add Travel
+          </a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="service_request">
+            Service Request
+          </a>
+<a class="bg-[#D4A63A] text-[#102847] px-5 py-2 rounded-full font-bold" href="myrequests">
+            My Requests
+          </a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="uviewmytravelspage">
+            My Travels
+          </a>
+<a class="text-gray-200 hover:text-[#D4A63A] font-medium" href="feedbackpage">
+            Feedback
+          </a>
+<!--<a href="emergency" class="text-white hover:text-yellow-400">Emergency</a>-->
+<a class="text-red-300 hover:text-red-200 font-medium" href="/">
+            Logout
+          </a>
+</div>
+</div>
+</nav>
+<!-- Content -->
+<div class="pt-24 pb-8 px-6">
+<h1 class="text-5xl font-extrabold text-white text-center">
+<i class="fa-solid fa-truck-medical"></i>
+
+        My Assistance Requests
+
+      </h1>
+<p class="text-center text-gray-200 mt-3 text-lg">
+
+        Track the status of your roadside assistance requests.
+
+      </p>
+<div class="text-center text-red-300 font-semibold mt-5">
+
+        {% for message in get_flashed_messages() %}
+        {{message}}
+        {% endfor %}
+
+      </div>
+<div class="grid lg:grid-cols-3 md:grid-cols-2 gap-6 mt-8">
+
+        {% for r in res %}
+
+   <div class="glass rounded-[28px] p-6">
+<!-- Header -->
+<div class="flex justify-between items-center">
+<h2 class="text-2xl font-bold text-[#102847]">
+
+              {{r[21]}}
+
+            </h2>
+{% if r[4]=="Pending" %}
+<span class="bg-yellow-500 text-black px-3 py-1 text-xs rounded-full font-semibold">
+  Pending
+</span>
+{% elif r[4]=="Accepted" %}
+<span class="bg-green-600 text-white px-3 py-1 text-xs rounded-full font-semibold">
+  Accepted
+</span>
+{% elif r[4]=="Completed" %}
+<span class="bg-blue-600 text-white px-3 py-1 text-xs rounded-full font-semibold">
+  Completed
+</span>
+{% elif r[4]=="Rejected" %}
+<span class="bg-red-600 text-white px-3 py-1 text-xs rounded-full font-semibold">
+  Rejected
+</span>
+{% else %}
+<span class="bg-gray-600 text-white px-3 py-1 text-xs rounded-full font-semibold">
+  {{ r[4] }}
+</span>
+{% endif %}
+
+          </div>
+<!-- Request details: Direct (no journey) vs Journey-based -->
+<div class="mt-6">
+
+            {% if r[3] is none %}
+            <!-- NEW FEATURE: Direct Service Request (raised without a journey) -->
+<h3 class="text-[#102847] font-bold text-base">
+<i class="fa-solid fa-bolt"></i>
+              Direct Service Request
+            </h3>
+<div class="mt-3 space-y-1 text-sm text-[#475569]">
+<p><b>Vehicle :</b> {{ r[5] }}</p>
+<p><b>Problem :</b> {{ r[6] }}</p>
+<p><b>Location :</b> {{ r[7] }}</p>
+<p><b>Vehicle Model :</b> {{ r[8] }}</p>
+<p><b>Problem Type :</b> {{ r[9] }}</p>
+</div>
+            {% else %}
+            <!-- Existing journey-based request -->
+<h3 class="text-[#102847] font-bold text-base">
+<i class="fa-solid fa-route"></i>
+              Journey Details
+            </h3>
+<div class="mt-3 space-y-1 text-sm text-[#475569]">
+<p><b>Source :</b> {{ r[10] }}</p>
+<p><b>Destination :</b> {{ r[11] }}</p>
+<p>{{ r[12] }}</p>
+<p>{{ r[13] }}</p>
+<p><i class="fa-solid fa-calendar-days text-yellow-400"></i> {{ r[12] }}</p>
+<p><i class="fa-solid fa-clock text-yellow-400"></i> {{ r[13] }}</p>
+</div>
+            {% endif %}
+
+          </div>
+<div class="border-t border-white/10 my-4"></div>
+<!-- Mechanic -->
+<div>
+<h3 class="text-[#102847] font-bold text-base">
+<i class="fa-solid fa-user-gear"></i>
+
+              Assigned Mechanic
+
+            </h3>
+<div class="mt-3 space-y-1 text-sm text-[#475569]">
+<p>{{ r[14] }}</p>
+<p>{{ r[15] }}</p>
+<p>{{ r[16] }}</p>
+<p>{{ r[17] }}</p>
+<p>{{ r[18] }}</p>
+</div>
+</div>
+<!-- Status Footer -->
+<div class="mt-5 text-center">
+
+            {% if r[4]=="Pending" %}
+
+            <div class="bg-yellow-500 text-black font-bold py-2.5 rounded-2xl text-sm">
+              Waiting for Mechanic Response
+            </div>
+{% elif r[4]=="Accepted" %}
+
+<div class="space-y-3">
+<div class="bg-green-600 text-white font-bold py-2.5 rounded-2xl text-sm">
+Mechanic is On the Way
+</div>
+<a class="block bg-blue-600 text-white font-bold py-2.5 rounded-2xl text-sm hover:bg-blue-700" href="https://www.google.com/maps?q={{ r[19] }},{{ r[20] }}" target="_blank">
+
+📍 Track Mechanic
+
+</a>
+</div>
+
+{% elif r[4]=="Completed" %}
+
+<div class="space-y-3">
+<div class="bg-blue-600 text-white font-bold py-2.5 rounded-2xl text-sm">
+Service Completed Successfully
+</div>
+<a class="block bg-yellow-500 text-black font-bold py-2.5 rounded-2xl text-sm hover:bg-yellow-600" href="/feedbackpage">
+
+⭐ Give Feedback
+
+</a>
+</div>
+
+            {% elif r[4]=="Rejected" %}
+
+<div class="space-y-3">
+<div class="bg-red-600 text-white font-bold py-2.5 rounded-2xl text-sm">
+        Request Rejected
+    </div>
+<a class="block bg-yellow-500 text-black font-bold py-2.5 rounded-2xl text-sm hover:bg-yellow-600 transition text-center" href="{{ url_for('requestagain', reqid=r[0]) }}">
+
+    🔄 Request Another Mechanic
+
+</a>
+</div>
+
+{% else %}
+
+<div class="bg-gray-600 text-white font-bold py-2.5 rounded-2xl text-sm">
+    {{ r[4] }}
+</div>
+
+{% endif %}
+
+          </div>
+</div>
+
+        {% endfor %}
+
+      </div>
+</div>
+</div>
+</body>
+</html>

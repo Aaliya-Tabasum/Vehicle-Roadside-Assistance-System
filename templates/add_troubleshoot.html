@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Self Troubleshoot</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+*{font-family:Poppins,sans-serif}
+body{
+margin:0;
+background:
+linear-gradient(rgba(148, 130, 100, 0.82),rgba(245,241,234,.88)),
+url('/static/prof.png') center center/cover no-repeat fixed;color:#102847}
+.sidebar{background:linear-gradient(180deg,#102847,#183A64)!important;border-right:3px solid #D4A437}
+.glass{background:rgba(255,255,255,.92)!important;border:1px solid rgba(212,164,55,.25);border-radius:28px;box-shadow:0 18px 45px rgba(16,40,71,.15)}
+.menu{transition:.3s;border-radius:14px;color:#fff}
+.menu:hover,.active{background:#D4A437!important;color:#102847!important;transform:translateX(6px)}
+input,select,textarea{background:#fff!important;color:#102847!important;border:1px solid #d8d1c7!important;border-radius:14px!important}
+input:focus,select:focus,textarea:focus{border-color:#D4A437!important;box-shadow:0 0 0 4px rgba(212,164,55,.18)!important;outline:none}
+label{color:#102847!important;font-weight:700}
+button[type=submit]{background:#102847!important;color:#fff!important}
+button[type=reset]{background:#D4A437!important;color:#102847!important}
+</style>
+
+
+</head>
+
+<body>
+
+<div class="flex min-h-screen">
+
+<aside class="sidebar w-72 text-white shadow-2xl">
+
+<div class="text-center py-8 border-b border-gray-700">
+
+<i class="fa-solid fa-car-burst text-5xl text-yellow-400 mb-4"></i>
+
+<h2 class="text-2xl font-bold">Admin Panel</h2>
+
+<p class="text-gray-400 text-sm mt-2">
+Vehicle Roadside Assistance
+</p>
+
+</div>
+
+<nav class="mt-8 px-5 space-y-3">
+
+<a href="/admindashboard"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="/aviewuserspage"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-users"></i>
+Users
+</a>
+
+<a href="/aviewmechanicspage"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-screwdriver-wrench"></i>
+Mechanics
+</a>
+
+<a href="/aviewrequestspage"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-list-check"></i>
+Requests
+</a>
+
+<a href="/viewfeedbackpage"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-star"></i>
+Feedback
+</a>
+
+<a href="/adminemergencypage"
+               class="menu flex items-center gap-4 px-4 py-2.5 rounded-xl">
+
+                <i class="fa-solid fa-phone-volume"></i>
+
+                Emergency Contacts
+
+            </a>
+
+
+<a href="/addtroubleshootpage"
+class="menu active flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-plus"></i>
+ Troubleshoot
+</a>
+
+<a href="/viewtroubleshoot"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-toolbox"></i>
+Troubleshoot List
+</a>
+
+
+
+<a href="/"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-right-from-bracket"></i>
+Logout
+</a>
+
+</nav>
+
+</aside>
+
+<main class="flex-1 p-8">
+
+<div class="glass rounded-2xl p-6 mb-6">
+
+<h1 class="text-3xl font-bold text-yellow-400">
+
+<i class="fa-solid fa-toolbox"></i>
+
+Add Self Troubleshoot
+
+</h1>
+
+<p class="text-gray-600 mt-2">
+
+Create troubleshooting solutions to help users resolve common vehicle problems.
+
+</p>
+
+</div>
+
+<div class="max-w-2xl mx-auto">
+
+<div class="glass rounded-3xl shadow-2xl p-5">
+
+        <!-- FORM -->
+
+        <div class="max-w-3xl mx-auto mt-2">
+           
+
+            <div class="glass rounded-3xl shadow-2xl p-5 hover:shadow-yellow-500/20 transition-all duration-500">
+
+
+                <form action="savetroubleshoot" method="POST">
+
+                    <div class="grid md:grid-cols-2 gap-4">
+
+                        <!-- Vehicle -->
+
+                        <div>
+
+                            <label class="text-yellow-400 font-semibold">
+
+                                 Vehicle Type
+
+                            </label>
+
+                            <select name="vehicle_type" required class="w-full mt-1 px-4 py-2.5 rounded-xl transition-all duration-300">
+
+                                <option value="">Choose Vehicle</option>
+
+                                <option>Two Wheeler</option>
+
+                                <option>Four Wheeler</option>
+
+                            </select>
+
+                        </div>
+
+                        <!-- Category -->
+
+                        <div>
+
+                            <label class="text-yellow-400 font-semibold">
+
+                                 Category
+
+                            </label>
+
+                            <select name="category" required class="w-full mt-1 px-4 py-2.5 rounded-xl transition-all duration-300">
+
+                                <option value="">Choose Category</option>
+
+                                <option>Battery</option>
+
+                                <option>Engine</option>
+
+                                <option>Tyre</option>
+
+                                <option>Brake</option>
+
+                                <option>Fuel</option>
+
+                                <option>Electrical</option>
+
+                                <option>Cooling</option>
+
+                                <option>Transmission</option>
+
+                                <option>Lights</option>
+
+                                <option>Suspension</option>
+
+                                <option>Chain</option>
+
+                                <option>Clutch</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Problem -->
+
+                    <div class="mt-3">
+
+                        <label class="text-yellow-400 font-semibold">
+
+                             Problem
+
+                        </label>
+
+                        <input type="text" name="problem" required placeholder="Example: Engine Overheating"
+                            class="w-full mt-2 px-4 py-2.5 rounded-xl transition-all duration-300">
+
+                    </div>
+
+                    <!-- Solution -->
+
+                    <div class="mt-3">
+
+                        <label class="text-yellow-400 font-semibold">
+
+                             Solution
+
+                        </label>
+
+                        <textarea name="solution" rows="3" required placeholder="Enter step-by-step solution..."
+                            class="w-full mt-2 px-4 py-2.5 rounded-xl transition-all duration-300"></textarea>
+
+                    </div>
+
+                    <!-- Tools -->
+
+                    <div class="mt-3">
+
+                        <label class="text-yellow-400 font-semibold">
+
+                             Tools Required
+
+                        </label>
+
+                        <input type="text" name="tools_required" placeholder="Example: Spanner, Jack, Screwdriver"
+                            class="w-full mt-2 px-4 py-2.5 rounded-xl transition-all duration-300">
+
+                    </div>
+
+                    <!-- Difficulty -->
+
+                    <div class="mt-3">
+
+                        <label class="text-yellow-400 font-semibold">
+
+                             Difficulty
+
+                        </label>
+
+                        <select name="difficulty" required class="w-full mt-2 px-4 py-2.5 rounded-xl transition-all duration-300">
+
+                            <option value="">Choose Difficulty</option>
+
+                            <option>Easy</option>
+
+                            <option>Medium</option>
+
+                            <option>Hard</option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Warning -->
+
+                    <div class="mt-3">
+
+                        <label class="text-yellow-400 font-semibold">
+
+                            ⚠ Safety Warning
+
+                        </label>
+
+                        <textarea name="warning" rows="2" placeholder="Example: Do not touch a leaking battery."
+                            class="w-full mt-2 px-4 py-2.5 rounded-xl transition-all duration-300"></textarea>
+
+                    </div>
+
+                    <!-- BUTTONS -->
+
+                    <div class="flex justify-center gap-5 mt-6">
+
+                        <button type="submit"
+                            class="bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-8 py-2 rounded-xl shadow-lg">
+
+                            <i class="fa-solid fa-floppy-disk"></i>
+
+                            Save Solution
+
+                        </button>
+
+                        <button type="reset"
+                            class="bg-gray-700 hover:bg-gray-800 text-white font-bold px-8 py-2 rounded-xl">
+
+                            <i class="fa-solid fa-rotate-left"></i>
+
+                            Reset
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+   </div>
+
+</main>
+
+</div>
+
+</body>
+
+</html>

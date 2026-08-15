@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Environment variables / secrets
+.env
+.env.*
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Flask
+instance/
+
+# User-generated uploads
+static/uploads/certificates/*
+static/uploads/mechimage/*
+static/uploads/usersdl/*
+
+# Logs
+*.log

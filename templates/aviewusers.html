@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Manage Users</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{font-family:Poppins,sans-serif}
+body{margin:0;background:linear-gradient(rgba(93, 71, 35, 0.82),rgba(148, 117, 63, 0.86)),url('/static/usa.png') center/cover fixed no-repeat;}
+body:before{content:'';position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(4px);z-index:-1;}
+.sidebar{background:rgba(20,20,20,.82)!important;backdrop-filter:blur(18px);border-right:1px solid rgba(250,204,21,.2)}
+.glass{background:rgba(40,40,40,.45)!important;border:1px solid rgba(250,204,21,.15);backdrop-filter:blur(16px);box-shadow:0 15px 35px rgba(0,0,0,.4)}
+.menu{transition:.3s;color:#fff}
+.menu:hover,.active{background:#facc15!important;color:#111!important;transform:translateX(6px)}
+img{transition:.35s}
+img:hover{transform:scale(1.04)}
+</style>
+
+
+
+<style id="royal-theme-users">
+.sidebar{background:#13294B!important;border-right:3px solid #D4A017!important;}
+.glass{
+background:rgba(247,243,236,.90)!important;
+border:1px solid rgba(19,41,75,.12)!important;
+backdrop-filter:blur(16px);
+box-shadow:0 15px 35px rgba(19,41,75,.18)!important;
+}
+.menu{color:#f3f4f6!important;}
+.menu:hover,.active{background:#D4A017!important;color:#13294B!important;}
+.glass h1,.glass h2,.glass h3,.glass p,.glass span,.glass div{color:#16325C!important;}
+.text-yellow-400,.text-yellow-300{color:#D4A017!important;}
+.text-gray-200,.text-gray-300,.text-gray-400{color:#52637f!important;}
+img{border:2px solid #D4A017!important;}
+body:before{background:rgba(247,243,236,.18)!important;backdrop-filter:blur(3px)!important;}
+</style>
+
+</head>
+
+<body>
+
+<div class="flex min-h-screen">
+
+<aside class="sidebar w-72 text-white shadow-2xl">
+
+<div class="text-center py-8 border-b border-gray-700">
+
+<i class="fa-solid fa-car-burst text-5xl text-yellow-400 mb-4"></i>
+
+<h2 class="text-2xl font-bold">
+Admin Panel
+</h2>
+
+<p class="text-gray-400 text-sm mt-2">
+Vehicle Roadside Assistance
+</p>
+
+</div>
+
+<nav class="mt-8 px-5 space-y-3">
+
+<a href="/admindashboard"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="/aviewuserspage"
+class="menu active flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-users"></i>
+Users
+</a>
+
+<a href="/aviewmechanicspage"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-screwdriver-wrench"></i>
+Mechanics
+</a>
+
+<a href="/aviewrequestspage"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-list-check"></i>
+Requests
+
+</a>
+
+<a href="/viewfeedbackpage"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-star"></i>
+Feedback
+
+</a>
+
+<a href="/adminemergencypage"
+               class="menu flex items-center gap-4 px-4 py-2.5 rounded-xl">
+
+                <i class="fa-solid fa-phone-volume"></i>
+
+                Emergency Contacts
+
+            </a>
+
+<a href="addtroubleshootpage" 
+class="menu  flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-add"></i>
+                        Add Troubleshoot
+
+</a>
+
+<a href="/viewtroubleshoot"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-toolbox"></i>
+Troubleshoot
+</a>
+
+
+
+<a href="/"
+class="menu flex items-center gap-4 px-5 py-3 rounded-xl">
+<i class="fa-solid fa-right-from-bracket"></i>
+Logout
+
+</a>
+
+<!-- Admin Profile Card -->
+
+<div class="glass rounded-2xl p-4 mt-6">
+
+    <div class="text-center">
+
+        <div class="w-16 h-16 mx-auto rounded-full bg-yellow-400 flex items-center justify-center">
+
+            <i class="fa-solid fa-user-shield text-black text-2xl"></i>
+
+        </div>
+
+        <h3 class="text-white font-bold mt-3">
+            Administrator
+        </h3>
+
+        <p class="text-gray-400 text-sm">
+            Vehicle Roadside Assistance
+        </p>
+
+        <span class="inline-block mt-3 bg-green-500 text-white text-xs px-3 py-1 rounded-full">
+            ● Online
+        </span>
+
+    </div>
+
+</div>
+
+
+</nav>
+
+</aside>
+
+<main class="flex-1 p-8">
+
+<div class="glass rounded-2xl p-6 mb-8">
+<h1 class="text-4xl font-bold text-yellow-300">
+
+<i class="fa-solid fa-users text-yellow-400 mr-2"></i>
+
+Registered Users
+
+</h1>
+
+<p class="text-gray-300 mt-2">
+View and manage all registered users.
+</p>
+
+</div>
+
+<div class="mt-8">
+<!-- PAGE -->
+
+<div id="flashMessage"
+     class="text-center text-green-300 font-semibold mt-5">
+
+{% for message in get_flashed_messages() %}
+
+{{message}}
+
+{% endfor %}
+
+</div>
+<div class="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 mt-8 justify-items-center">
+
+{% for r in users %}
+
+<div class="glass rounded-2xl overflow-hidden shadow-lg hover:scale-105 duration-300 w-full max-w-[255px] h-[360px] flex flex-col mx-auto">
+
+<!-- USER IMAGE -->
+
+<div class="p-4 flex flex-col h-full">
+
+    <div class="mt-0">
+
+<p class="text-yellow-400 font-semibold mb-2">
+
+Driving License
+
+</p>
+
+<img onclick="openImage(this.src)" style="cursor:pointer" src="../static/uploads/usersdl/{{r[10]}}"
+     class="rounded-xl w-full h-24 object-cover border border-yellow-500">
+
+</div>
+    
+
+<h2 class="text-lg font-bold text-yellow-400 mt-2">
+
+{{r[1]}}
+
+</h2>
+
+<div class="mt-3 space-y-2 text-sm text-gray-200">
+
+<p>
+
+<i class="fa-solid fa-envelope text-yellow-400"></i>
+
+{{r[2]}}
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-phone text-yellow-400"></i>
+
+{{r[3]}}
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-venus-mars text-yellow-400"></i>
+
+{{r[4]}}
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-location-dot text-yellow-400"></i>
+
+{{r[5]}}
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-car text-yellow-400"></i>
+
+{{r[6]}}
+
+</p>
+
+<p>
+
+<i class="fa-solid fa-motorcycle text-yellow-400"></i>
+
+{{r[7]}}
+
+</p>
+
+<p>
+    <i class="fa-solid fa-file-shield text-yellow-400"></i>
+    Policy No : {{r[8]}}
+</p>
+
+</div> <!-- Close space-y-3 -->
+
+
+
+</div> <!-- Close p-4 -->
+
+</div> <!-- Close glass -->
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+
+<div id="imgModal" class="fixed inset-0 hidden items-center justify-center bg-black/90 z-50">
+  <div class="relative max-w-5xl w-11/12">
+    <button onclick="closeImage()" class="absolute -top-12 left-0 bg-yellow-500 text-black px-5 py-2 rounded-lg font-bold">
+      <i class="fa fa-arrow-left"></i> Back
+    </button>
+    <img id="modalImg" class="w-full max-h-[85vh] object-contain rounded-xl border-4 border-yellow-400">
+  </div>
+</div>
+
+<script>
+function openImage(src){
+ document.getElementById('modalImg').src=src;
+ const m=document.getElementById('imgModal');
+ m.classList.remove('hidden');
+ m.classList.add('flex');
+}
+function closeImage(){
+ const m=document.getElementById('imgModal');
+ m.classList.remove('flex');
+ m.classList.add('hidden');
+}
+</script>
+
+<script>
+setTimeout(function () {
+    const flash = document.getElementById("flashMessage");
+    if (flash) {
+        flash.style.transition = "opacity 0.5s";
+        flash.style.opacity = "0";
+        setTimeout(() => flash.remove(), 500);
+    }
+}, 3000);
+</script>
+
+</body>
+
+</html>
